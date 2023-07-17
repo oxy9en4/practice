@@ -1,0 +1,5 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: 중간 디렉터리(../output/c++/)에 다른 프로젝트(OSJ_Project_Sample.vcxproj)에서 공유하는 파일이 포함되어 있습니다.  이로 인해 잘못된 정리 및 다시 빌드 동작이 수행될 수 있습니다.
+  StudentManager.cpp
+D:\OSJ\RealStudentManagerLastVersion\StudentManager.cpp(21,12): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\OSJ\RealStudentManagerLastVersion\StudentManager.cpp(62,49): warning C4101: 'e' :참조되지 않은 지역 변수입니다.
+  RealStudentManagerLastVersion.vcxproj -> D:\OSJ\output\RealStudentManagerLastVersion.exe

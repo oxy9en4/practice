@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="LinkedList&lt;T&gt;">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AkQAAAAAABAABQAEAKAABAACAAAAAAAAAAIAAgAAAAA=</HashCode>
+      <FileName>LinkedList.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Student">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAACQAAAAAAAAAAAAAEAAAAEAAAAAEAAAAAgEgA=</HashCode>
+      <FileName>Student.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StudentManager">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAI=</HashCode>
+      <FileName>StudentManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FileIO&lt;T&gt;">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAICAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FileIO.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Node&lt;T&gt;">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAEBAAA=</HashCode>
+      <FileName>LinkedList.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
