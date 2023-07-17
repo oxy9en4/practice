@@ -3,6 +3,7 @@
 class sNode
 {
 public:
+	int iIndex;
 	sRect rt;
 	int iDepth = 0;
 	sNode* pParent = nullptr;

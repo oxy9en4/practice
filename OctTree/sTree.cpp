@@ -59,11 +59,21 @@ sNode* sTree::CreateNode(sNode* _pParent, float x, float y, float width, float h
 	return new sNode(_pParent, x, y, width, height);
 }
 
-sNode* sTree::AddObject(sObject* obj) {
+sNode* sTree::StaticAddObject(sObject* obj) {
 	sNode* pFindNode = FindNode(RootNode, obj);
 	if (pFindNode != nullptr)
 	{
 		pFindNode->StaticObjectList.push_back(obj);
+		return pFindNode;
+	}
+	return nullptr;
+}
+sNode* sTree::DynamicAddObject(sObject* obj) {
+	sNode* pFindNode = FindNode(RootNode, obj);
+	if (pFindNode != nullptr)
+	{
+		pFindNode->DynamicObjectList.push_back(obj);
+		g_DynamicObjectNodeList.insert(pFindNode);
 		return pFindNode;
 	}
 	return nullptr;
@@ -74,7 +84,9 @@ sNode* sTree::FindNode(sNode* pNode, sObject* obj) {
 	do	{
 		for (int i = 0; i < pNode->pChild.size(); ++i) {
 			if (pNode->pChild[i] != nullptr) {
-				if (sCollision::RectToPoint(pNode->pChild[i]->rt, obj->Position))
+				if (sCollision::RectToRect
+					(pNode->pChild[i]->rt,
+					obj->rect))
 				{
 					que.push(pNode->pChild[i]);
 					break;
@@ -95,12 +107,13 @@ void sTree::LevelOrder(sNode* pNode) {
 		<< pNode->rt.fy << L","
 		<< pNode->rt.fWidth << L","
 		<< pNode->rt.fHeight << L","
-		<< pNode->StaticObjectList.size() << std::endl;
-	for (int iobj = 0; iobj < pNode->StaticObjectList.size(); ++iobj) {
+		// << pNode->StaticObjectList.size() << std::endl;
+		<< pNode->DynamicObjectList.size() << std::endl;
+	for (int iobj = 0; iobj < pNode->DynamicObjectList.size(); ++iobj) {
 		std::wcout << L"       " << L"<" << iobj << L">"
-			<< pNode->StaticObjectList[iobj]->csName << L"("
-			<< pNode->StaticObjectList[iobj]->Position.x << L","
-			<< pNode->StaticObjectList[iobj]->Position.y << L")" << std::endl;
+			<< pNode->DynamicObjectList[iobj]->csName << L"("
+			<< pNode->DynamicObjectList[iobj]->Position.x << L","
+			<< pNode->DynamicObjectList[iobj]->Position.y << L")" << std::endl;
 	}
 	for (int i = 0; i < pNode->pChild.size(); ++i) {
 		if (pNode->pChild[i] != nullptr)
@@ -111,4 +124,27 @@ void sTree::LevelOrder(sNode* pNode) {
 		que.pop();
 		LevelOrder(pNode);
 	}
+}
+
+
+bool sTree::Init() {
+	return true;
+}
+bool sTree::PreFrame() {
+	for (auto node : g_DynamicObjectNodeList) {
+		node->DynamicObjectList.clear();
+	}
+	return true;
+}
+bool sTree::Frame() {
+	return true;
+}
+bool sTree::PostFrame() {
+	return true;
+}
+bool sTree::Render() {
+	return true;
+}
+bool sTree::Release() {
+	return true;
 }

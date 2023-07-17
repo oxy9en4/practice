@@ -5,7 +5,8 @@
 #include <queue>
 #include <math.h>
 #include <Windows.h>
-
+#include <set>
+#pragma comment(lib, "winmm.lib") // to use timeGetTime() func
 
 
 enum { NTREE = 4 };

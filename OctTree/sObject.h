@@ -6,7 +6,9 @@ class sObject
 public:
 	std::wstring csName;
 	sPoint		 Position;
-	virtual void Move() {};
+	sRect		 rect;
+	virtual void SetRect(sPoint& c, float w, float h);
+	virtual void Move(float fSecond) {};
 	virtual void SetTarget(sPoint& t) {};
 };
 
@@ -19,23 +21,11 @@ public:
 
 class sDynamicObject : public sObject {
 public:
-	float fSpeed = 30.0f;
+	float fSpeed = 100.0f;
 	sPoint Direction;
 	sPoint Target;
-	void SetTarget(sPoint& t) {
-		Target = t;
-		Direction = Target - Position;
-		float fDistacne = Direction.getDistance();
-		Direction /= fDistacne; // Á¤±ÔÈ­
-	}
-	void Move() {
-		sPoint vDir = Target - Position;
-		float fD = vDir.getDistance();
-		if (fD > 50.0f) {
-			sPoint vVelocity = Direction * fSpeed;
-			Position += vVelocity;
-		}
-	}
+	void SetTarget(sPoint& t);
+	void Move(float fSecond);
 	sDynamicObject() {
 		Direction.x = 0.0f;
 		Direction.y = 0.0f;

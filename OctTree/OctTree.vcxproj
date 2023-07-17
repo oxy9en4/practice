@@ -149,6 +149,7 @@
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="sTimer.cpp" />
     <ClCompile Include="sUtils.cpp" />
     <ClCompile Include="sTree.cpp" />
   </ItemGroup>
@@ -157,6 +158,7 @@
     <ClInclude Include="sNode.h" />
     <ClInclude Include="sObject.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="sTimer.h" />
     <ClInclude Include="sUtils.h" />
     <ClInclude Include="sTree.h" />
   </ItemGroup>

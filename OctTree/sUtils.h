@@ -41,9 +41,16 @@ struct sPoint {
 	sPoint() {};
 };  
 
-struct sRect {
-	float fx;
-	float fy;
+struct sFloat2 {
+	union {
+		struct {
+			float fx;
+			float fy;
+		};
+		float v[2];
+	};
+};
+struct sRect : sFloat2 {
 	float fWidth;
 	float fHeight;
 	sPoint Point[NTREE];
@@ -53,6 +60,16 @@ struct sRect {
 	sPoint Max;
 	sPoint v;
 	sPoint s;
+	sRect operator+(sRect& p){
+		sRect tmpRct;
+		float fMinX = min(fx, p.fx);
+		float fMinY = min(fy, p.fy);
+		float fMaxX = max(fx, p.fx);
+		float fMaxY = max(fy, p.fy);
+		sPoint pos = { fMinX, fMinY };
+		tmpRct.Set(pos, fMaxX - fMinX, fMaxY - fMinY);
+		return tmpRct;
+	}
 
 	void Set(float x, float y, float w, float h) {
 		v = { x, y };
@@ -60,6 +77,17 @@ struct sRect {
 
 		fx = x;
 		fy = y;
+		Set(w, h);
+	}
+	void Set(sPoint p, float w, float h) {
+		v = { p.x, p.y };
+		s = { w, h };
+
+		fx = p.x;
+		fy = p.y;
+		Set(w, h);
+	}
+	void Set(float w, float h) {
 		fWidth = w;
 		fHeight = h;
 
