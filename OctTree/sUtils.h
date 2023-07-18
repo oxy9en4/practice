@@ -1,114 +1,108 @@
 #pragma once
-#define randstep(fmin, fmax) ((float)fmin+((float)fmax*(float)fmin)*rand() / RAND_MAX)
 
-// operator overloading
-struct sPoint {
-	float x;
-	float y;
-	sPoint operator+(sPoint& p) {
-		return sPoint(x + p.x, y + p.y);
+#define randstep(fmin, fmax) ((float)fmin + ((float)fmax - (float)min)* rand() / RANDMAX)
+
+struct SPoint
+{
+	float x = 0;
+	float y = 0;
+	SPoint operator+(SPoint& p) {
+		return SPoint(x + p.x, y + p.y);
 	}
-	sPoint& operator+=(sPoint& p) {
-		x += p.x;
-		y += p.y;
+	SPoint operator-(SPoint& p) {
+		return SPoint(x - p.x, y - p.y);
+	}
+	SPoint operator*(float p) {
+		return SPoint(x * p, y * p);
+	}
+	SPoint operator/(float p) {
+		return SPoint(x / p, y / p);
+	}
+	SPoint& operator/=(float p) {
+		x = x / p;
+		y = y / p;
 		return *this;
 	}
-	sPoint operator-(sPoint& p) {
-		return sPoint(x - p.x, y - p.y);
-	}
-	sPoint operator*(float fv) {
-		return sPoint(x * fv, y * fv);
-	}
-	sPoint operator/(float fv) {
-		return sPoint(x / fv, y / fv);
-	}
-	sPoint operator/=(float fv) {
-		x = x / fv;
-		y = y / fv;
-		return *this;
-	}
-	float getDistance() {
-		float fDistance = sqrt(x * x + y * y);
-		return fDistance;
-	}
-	static float getDistance(sPoint& d) {
-		float fDistance = sqrt(d.x * d.x + d.y * d.y);
-		return fDistance;
-	}
 
-	
-	sPoint(float fx, float fy) : x(fx), y(fy) {}
-	sPoint() {};
-};  
+	float GetDistance() {
+		return sqrt(x * x + y * y);
+	}
+	SPoint(float x, float y) : x(x), y(y) {}
+	SPoint();
+};
 
-struct sFloat2 {
+struct SFloat2
+{
 	union {
 		struct {
-			float fx;
-			float fy;
+			float mFx;
+			float mFy;
 		};
-		float v[2];
+		float v[2] = { 0 };
 	};
 };
-struct sRect : sFloat2 {
-	float fWidth;
-	float fHeight;
-	sPoint Point[NTREE];
-	sPoint Center;
-	sPoint Half;
-	sPoint Min;
-	sPoint Max;
-	sPoint v;
-	sPoint s;
-	sRect operator+(sRect& p){
-		sRect tmpRct;
-		float fMinX = min(fx, p.fx);
-		float fMinY = min(fy, p.fy);
-		float fMaxX = max(fx, p.fx);
-		float fMaxY = max(fy, p.fy);
-		sPoint pos = { fMinX, fMinY };
-		tmpRct.Set(pos, fMaxX - fMinX, fMaxY - fMinY);
-		return tmpRct;
+
+struct SRect : SFloat2 {
+	float mFWidth = 0;
+	float mFHeight = 0;
+	SPoint mPoint[4];
+	SPoint mCenter;
+	SPoint mHalf;
+	SPoint mMin;
+	SPoint mMax;
+	SPoint v;
+	SPoint s;
+	SRect operator + (SRect& p) {
+		SRect tmp;
+		float newX = min(mMin.x, p.mMin.x);
+		float newY = min(mMin.y, p.mMin.y);
+		float maxX = max(mMax.x, p.mMax.x);
+		float maxY = max(mMax.y, p.mMax.y);
+		SPoint pos = { newX, newY };
+		tmp.Set(pos, maxX - newX, maxY - newY);
+		return tmp;
+	}
+	void Set(SPoint p) {
+		v = { p.x, p.y };
+		s = { mFWidth, mFHeight };
+		mFx = p.x;
+		mFy = p.y;
+		Set(mFWidth, mFHeight);
+	}
+
+	void Set(float w, float h)
+	{
+		mFWidth = w;
+		mFHeight = h;
+		mHalf = { mFWidth / 2, mFHeight / 2 };
+		mPoint[0] = { mFx , mFy };
+		mPoint[1] = { mFx + mFWidth , mFy };
+		mPoint[2] = mCenter;
+		mPoint[3] = { mFx , mCenter.y };
+		mCenter = (mPoint[0] + mPoint[2]) * 0.5f;
+		mMin = mPoint[0];
+		mMax = mPoint[2];
+	}
+
+	void Set(SPoint p, float w, float h) {
+		v = { p.x, p.y };
+		s = { mFWidth, mFHeight };
+		mFx = p.x;
+		mFy = p.y;
+		Set(w, h);
 	}
 
 	void Set(float x, float y, float w, float h) {
 		v = { x, y };
 		s = { w, h };
-
-		fx = x;
-		fy = y;
+		mFx = x;
+		mFy = y;
 		Set(w, h);
 	}
-	void Set(sPoint p, float w, float h) {
-		v = { p.x, p.y };
-		s = { w, h };
 
-		fx = p.x;
-		fy = p.y;
-		Set(w, h);
-	}
-	void Set(float w, float h) {
-		fWidth = w;
-		fHeight = h;
 
-		Point[0] = { fx, fy };
-		Point[1] = { fx + fWidth, fy };
-		Point[2] = { fx + fWidth, fy + fHeight };
-		Point[3] = { fx, fy + fHeight };
-		Half = { fWidth * 0.5f, fHeight * 0.5f };
-		Center = { (Point[0] + Point[2]) * 0.5f };
-		Min = Point[0];
-		Max = Point[2];
-	}
-
-	sRect() {}
-	sRect(float x, float y, float w, float h) {
+	SRect();
+	SRect(float x, float y, float w, float h) {
 		Set(x, y, w, h);
 	}
 };
-
-class sUtils
-{
-
-};
-
