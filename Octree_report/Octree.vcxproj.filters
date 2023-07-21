@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="Octree.cpp">
+      <Filter>Octree</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>afx</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="Utils.h" />
+    <ClInclude Include="Octree.h">
+      <Filter>Octree</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>afx</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Octree">
+      <UniqueIdentifier>{b32aa59c-1e01-4906-bc81-64b467be85d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="afx">
+      <UniqueIdentifier>{39d6e108-a137-4ff3-a581-4014c360af3a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
