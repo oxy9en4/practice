@@ -2,6 +2,8 @@
 
 #define randstep(fmin, fmax) ((float)fmin + ((float)fmax - (float)min)* rand() / RANDMAX)
 
+
+
 struct SPoint
 {
 	float x = 0;

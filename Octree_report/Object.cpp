@@ -1,3 +1,3 @@
 #include "stdafx.h"
-#include "SObject.h"
+#include "Object.h"
 
