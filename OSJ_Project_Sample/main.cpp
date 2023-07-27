@@ -1,18 +1,35 @@
 ﻿#include <stdio.h>
 
-int main()
+int main(void)
 {
-    int n = 0;
+    int n, m;
+    int arr[3][30] = { 0 };
 
-    scanf_s("%d", &n);
-
-    int arr[16][16] = { 0 };
-    arr[0][0] = 1;
-    for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= i; j++) {
-            arr[i][j] = arr[i - 1][j - 1] + arr[i - 1][j];
-            printf("%d", arr[i][j]);
+    scanf_s("%d %d", &n, &m);
+    int n_tmp = n;
+    int m_tmp = m;
+    for (int i = 2; i <= n; i++) {
+        while (n_tmp % i == 0) {
+            n_tmp /= i;
+            arr[0][i]++;
         }
-        printf("\n");
+
     }
+    for (int i = 2; i <= m; i++) {
+        while (m_tmp % i == 0) {
+            m_tmp /= i;
+            arr[1][i]++;
+        }
+    }
+    int result = 1;
+    for (int i = 2; i < 30; i++) {
+        int max = (arr[0][i] > arr[1][i]) ? arr[0][i] : arr[1][i];
+        while (max > 0) {
+            result = result * i;
+            max--;
+        }
+    }
+    printf("%d", result);
+
+    return 0;
 }
