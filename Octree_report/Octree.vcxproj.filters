@@ -11,6 +11,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>afx</Filter>
     </ClCompile>
+    <ClCompile Include="Math.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Node.h" />
@@ -22,6 +23,7 @@
     <ClInclude Include="stdafx.h">
       <Filter>afx</Filter>
     </ClInclude>
+    <ClInclude Include="Math.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Octree">
