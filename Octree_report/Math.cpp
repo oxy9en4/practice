@@ -51,6 +51,12 @@ Vector3& Vector3::operator /=(float f){
 	z /= f;
 	return *this;
 }
+Vector3& Vector3::operator +=(Vector3 p) {
+	x += p.x;
+	y += p.y;
+	z += p.z;
+	return *this;
+}
 float Vector3::Angle(Vector3& p){
 	Vector3 a = NormVector();
 	Vector3 b = p.NormVector();

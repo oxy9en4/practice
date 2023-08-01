@@ -1,48 +1,22 @@
 #pragma once
-#include <math.h>
-#include <Math.h>
+#include "Math.h"
+
+
 
 // make classes for  octree
 
-struct Point {
-	float mFx = 0.0f;
-	float mFy = 0.0f;
-	float mFz = 0.0f;
-
-
-	bool operator ==(Point& p);
-
-	bool operator !=(Point& p);
-
-	Point operator +(Point& p);
-
-	Point operator -(Point& p);
-
-	Point operator*(float f);
-
-	Point operator/(float f);
-
-	Point& operator +=(Point& p);
-	Point& operator /=(float f);
-
-	float GetDistance();
-
-	Point() = default;
-	Point(float x, float y, float z) : mFx(x), mFy(y), mFz(z) {
-
-	}
-};
-
 struct Box {
-	bool mBenable = true;
+	bool mbEnable = true;
 
-	Vector3 mVector3[8];
+	Vector3 mPoint[8];
 	Vector3 mCenter;
 	Vector3 mHalf;
 	Vector3 mMin;
 	Vector3 mMax;
 	Vector3 v;
-	Vector3 s;
+	float mfWidth = 0.0f;
+	float mfHeight = 0.0f;
+	float mfDepth = 0.0f;
 
 	bool operator ==(Box& p);
 
@@ -61,6 +35,8 @@ struct Box {
 	void Set(float x, float y, float z, float w, float h, float d);
 
 	void Set(Vector3 p, float w, float h, float d);
+
+	void Set(Vector3 p, Vector3 o);
 
 	bool ToBox(Box& p);
 

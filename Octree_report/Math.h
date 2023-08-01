@@ -20,6 +20,7 @@ public:
 	Vector3 operator /(float f);
 	Vector3& operator /=(float f);
 	Vector3& operator *=(float f);
+	Vector3& operator +=(Vector3 p);
 	float Angle(Vector3& p);
 
 	float Length();

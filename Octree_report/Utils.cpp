@@ -8,9 +8,9 @@ bool Box::operator ==(Box& p)
 	if (fabs(v.x - p.v.x) < EPSILON
 		&& fabs(v.y - p.v.y) < EPSILON
 		&& fabs(v.z - p.v.z) < EPSILON
-		&& fabs(s.width - p.s.width) < EPSILON
-		&& fabs(s.height - p.s.height) < EPSILON
-		&& fabs(s.depth - p.s.depth) < EPSILON)
+		&& fabs(mfWidth - p.mfWidth) < EPSILON
+		&& fabs(mfHeight - p.mfHeight) < EPSILON
+		&& fabs(mfDepth - p.mfDepth) < EPSILON)
 	{
 		return true;
 	}
@@ -35,54 +35,54 @@ Box Box::operator +(Box& p) {
 
 Box Box::operator -(Box& p) {
 	Box tmp;
-	tmp.mBenable = false;
+	tmp.mbEnable = false;
 
 	if (ToBox(p)) {
 
-		float fMinX = max(mMin.v.x, p.mMin.v.x);
-		float fMinY = max(mMin.v.y, p.mMin.v.y);
-		float fMinZ = max(mMin.v.z, p.mMin.v.z);
+		float fMinX = max(mMin.x, p.mMin.x);
+		float fMinY = max(mMin.y, p.mMin.y);
+		float fMinZ = max(mMin.z, p.mMin.z);
 
-		float fMaxX = min(mMax.v.x, p.mMax.v.x);
-		float fMaxY = min(mMax.v.y, p.mMax.v.y);
-		float fMaxZ = min(mMax.v.z, p.mMax.v.z);
+		float fMaxX = min(mMax.x, p.mMax.x);
+		float fMaxY = min(mMax.y, p.mMax.y);
+		float fMaxZ = min(mMax.z, p.mMax.z);
 
 		Vector3 pivot(fMinX, fMinY, fMinZ);
 		tmp.Set(pivot, fMaxX - fMinX, fMaxY - fMinY, fMaxZ - fMinZ);
-		tmp.mBenable = true;
+		tmp.mbEnable = true;
 	}
 	return tmp;
 }
 Box Box::operator -(Vector3& p) {
-	return Box(v.x - p.v.x, v.y - p.v.y, v.z - p.s.z, s.width, s.height, s.depth);
+	return Box(v.x - p.x, v.y - p.y, v.z - p.z, mfWidth, mfHeight, mfDepth);
 }
 Box Box::operator *(float f) {
 	if (f <= EPSILON) return *this;
-	return Box(v.x * f, v.y * f, v.z * f, s.width, s.height, s.depth);
+	return Box(v.x * f, v.y * f, v.z * f, mfWidth, mfHeight, mfDepth);
 }
 Box Box::operator /(float f) {
 	if (f <= EPSILON) return *this;
-	return Box(v.x / f, v.y / f, v.z / f, s.width, s.height, s.depth);
+	return Box(v.x / f, v.y / f, v.z / f, mfWidth, mfHeight, mfDepth);
 }
 
 
 void Box::Set(float w, float h, float d) {
-	v.width = w;
-	v.height = h;
-	v.depth = d;
+	mfWidth = w;
+	mfHeight = h;
+	mfDepth = d;
 	mHalf = { w * 0.5f, h * 0.5f, d * 0.5f };
-	mVector3[0] = { v.x, v.y, v.z };
-	mVector3[1] = { v.x + w, v.y, v.z };
-	mVector3[2] = { v.x + w, v.y + h, v.z };
-	mVector3[3] = { v.x, v.y + h, v.z };
+	mPoint[0] = { v.x, v.y, v.z };
+	mPoint[1] = { v.x + w, v.y, v.z };
+	mPoint[2] = { v.x + w, v.y + h, v.z };
+	mPoint[3] = { v.x, v.y + h, v.z };
 
-	mVector3[4] = { v.x, v.y, v.z + d };
-	mVector3[5] = { v.x + w, v.y, v.z + d };
-	mVector3[6] = { v.x + w, v.y + h, v.z + d };
-	mVector3[7] = { v.x, v.y + h, v.z + d };
+	mPoint[4] = { v.x, v.y, v.z + d };
+	mPoint[5] = { v.x + w, v.y, v.z + d };
+	mPoint[6] = { v.x + w, v.y + h, v.z + d };
+	mPoint[7] = { v.x, v.y + h, v.z + d };
 
-	mMin = mVector3[0];
-	mMax = mVector3[6];
+	mMin = mPoint[0];
+	mMax = mPoint[6];
 	mCenter = (mMin + mMax) * 0.5f;
 }
 
@@ -95,18 +95,19 @@ void Box::Set(float x, float y, float z, float w, float h, float d) {
 }
 
 void Box::Set(Vector3 p, float w, float h, float d) {
-	v.x = p.v.x;
-	v.y = p.v.y;
-	v.z = p.v.z;
+	v.x = p.x;
+	v.y = p.y;
+	v.z = p.z;
 	Set(w, h, d);
 }
+
 
 bool Box::ToBox(Box& p) {
 	Box sum = (*this) + p;
 
-	if (sum.v.x - (s.width + p.s.width) < EPSILON
-		&& sum.v.y - (s.height + p.s.height) < EPSILON
-		&& sum.v.z - (s.depth + p.s.depth) < EPSILON)
+	if (sum.v.x - (mfWidth + p.mfWidth) < EPSILON
+		&& sum.v.y - (mfHeight + p.mfHeight) < EPSILON
+		&& sum.v.z - (mfDepth + p.mfDepth) < EPSILON)
 	{
 		return true;
 	}
@@ -117,8 +118,8 @@ bool Box::ToBox(Box& p) {
 static bool BoxToBox(Box& p, Box& t) {
 	Box sum = p + t;
 
-	if (sum.v.x - (p.s.width + t.s.width) > EPSILON) return false;
-	if (sum.v.y - (p.s.height + t.s.height) > EPSILON) return false;
-	if (sum.v.z - (p.s.depth + t.s.depth) > EPSILON) return false;
+	if (sum.v.x - (p.mfWidth + t.mfWidth) > EPSILON) return false;
+	if (sum.v.y - (p.mfHeight + t.mfHeight) > EPSILON) return false;
+	if (sum.v.z - (p.mfDepth + t.mfDepth) > EPSILON) return false;
 	return true;
 }
