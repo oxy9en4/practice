@@ -8,7 +8,7 @@
 class Object
 {
 public:
-	int iNodeIndex = -1;
+	int iObjIndex = -1;
 	std::wstring wsName;
 	Box mBox;
 

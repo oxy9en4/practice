@@ -40,7 +40,7 @@ struct Box {
 
 	bool ToBox(Box& p);
 
-	static bool BoxToBox(Box& p);
+	static bool BoxToBox(Box& p, Box& t);
 
 
 	Box(Vector3 p, float w, float h, float d)

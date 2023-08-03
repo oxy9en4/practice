@@ -115,7 +115,7 @@ bool Box::ToBox(Box& p) {
 }
 
 
-static bool BoxToBox(Box& p, Box& t) {
+bool Box::BoxToBox(Box& p, Box& t) {
 	Box sum = p + t;
 
 	if (sum.v.x - (p.mfWidth + t.mfWidth) > EPSILON) return false;
