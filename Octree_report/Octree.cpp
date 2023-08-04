@@ -9,22 +9,48 @@ void Octree::Run()
 
 void Octree::BuildTree(Node* pParent)
 {
-    if (pParent->miDepth > 1) return; // Depth escape
+    if (pParent->miDepth > 1) return; // Escape condition by Depth
 
-    pParent->mpChild[0]->mBox.mbEnable = true;
-    pParent->mpChild[0]->mBox;
+    
+    for (int i = 0; i < pParent->mpChild.size(); ++i) {
+        Vector3 vHalf = pParent->mBox.mHalf * 0.5f;
+        
+        float Width = 0.0f, Height = 0.0f, Depth = 0.0f;
+        if ((i % 4 == 0) % 3 != 0) Width = vHalf.x;
+        if (i % 4 > 1) Height = vHalf.y;
+        if (i > 3) Depth = vHalf.z;
+        Vector3 fSize(Width, Height, Depth);
 
-    for (int i = 0; i < 8; ++i) {
-        pParent->mpChild[i]->miIndex = ++iNumCounter;
-        pParent->mpChild[i]->miDepth = pParent->miDepth + 1;
-        pParent->mpChild[i]->SetParent(pParent);
+        Node* pNewNode = CreateNode(pParent, pParent->mBox.mPoint[0] / 2 + fSize, vHalf);
+        
+        pParent->mpChild.push_back(pNewNode);
+
         BuildTree(pParent->mpChild[i]);
     }
 }
 
 Node* Octree::CreateNode(Node* pParent, float x, float y, float z, float w, float h, float d)
 {
-    return nullptr;
+    Node* pNode = new Node(++iNumCounter);
+    pNode->SetParent(pParent);
+    pNode->mBox.Set(x, y, z, w, h, d);
+    return pNode;
+}
+
+Node* Octree::CreateNode(Node* pParent, Vector3 p, float w, float h, float d)
+{
+    Node* pNode = new Node(++iNumCounter);
+    pNode->SetParent(pParent);
+    pNode->mBox.Set(p, w, h, d);
+    return pNode;
+}
+
+Node* Octree::CreateNode(Node* pParent, Vector3 p, Vector3 size)
+{
+    Node* pNode = new Node(++iNumCounter);
+    pNode->SetParent(pParent);
+    pNode->mBox.Set(p, size);
+    return pNode;
 }
 
 Node* Octree::FindNode(Node* pNode, Object* obj)

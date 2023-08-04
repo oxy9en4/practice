@@ -1,6 +1,6 @@
 #pragma once
 #include "Utils.h"
-#include "Math.h"
+
 
 // why Object has Utils?
 // Object has Box, Point etc
@@ -14,8 +14,8 @@ public:
 
 
 	virtual void SetBox(Vector3& vPos, float w, float h, float d);
-	virtual void Move(float fSPF) = 0;
-	virtual void SetTarget(Vector3& vTarget) = 0;
+	virtual void Move(float fSPF) {};
+	virtual void SetTarget(Vector3& vTarget) {};
 
 
 	// What Object has i need?

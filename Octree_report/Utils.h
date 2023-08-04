@@ -14,9 +14,7 @@ struct Box {
 	Vector3 mMin;
 	Vector3 mMax;
 	Vector3 v;
-	float mfWidth = 0.0f;
-	float mfHeight = 0.0f;
-	float mfDepth = 0.0f;
+	Vector3 size;
 
 	bool operator ==(Box& p);
 

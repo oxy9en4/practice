@@ -26,7 +26,7 @@ void DynamicObject::Move(float fSPF)
 		mDirection.y *= -1.0f;
 	}
 	// 범위를 벗어나면 방향 반대로, 위치 조정
-	mBox.Set(mBox.v + vVelocity, mBox.mfWidth, mBox.mfHeight, mBox.mfDepth); // 새로운 위치로 재정의
+	mBox.Set(mBox.v + vVelocity, mBox.size.x, mBox.size.y, mBox.size.z); // 새로운 위치로 재정의
 }
 
 void DynamicObject::SetTarget(Vector3& vTarget)
