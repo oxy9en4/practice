@@ -11,8 +11,8 @@ public:
 	Node* mpParent = nullptr;
 
 	std::vector<Node*> mpChild;
-	std::vector<Object*> mStaticObjectList;
-	std::vector<Object*> mDynamicObjectList;
+	std::set<Object*> mStaticObjectList;
+	std::set<Object*> mDynamicObjectList;
 
 	void SetParent(Node* pParent);
 	

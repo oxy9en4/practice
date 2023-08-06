@@ -83,3 +83,16 @@ static float GetDistance(Vector3& p){
 	float fDistance = sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
 	return fDistance;
 }
+
+Vector3::Vector3(float fx, float fy, float fz)
+{
+	x = fx;
+	y = fy;
+	z = fz;
+}
+Vector3::Vector3()
+{
+	x = 0.0f;
+	y = 0.0f;
+	z = 0.0f;
+}

@@ -8,7 +8,7 @@ void Object::SetBox(Vector3& vPos, float w, float h, float d) {
 void DynamicObject::Move(float fSPF)
 {
 	Vector3 vVelocity = mDirection * fSPF * fSpeed;
-
+	vVelocity += mBox.v;
 	if (vVelocity.x < 0.0f) {
 		vVelocity.x = 0.0f;
 		mDirection.x *= -1.0f;
@@ -25,13 +25,24 @@ void DynamicObject::Move(float fSPF)
 		vVelocity.y = 600.0f;
 		mDirection.y *= -1.0f;
 	}
+	if (vVelocity.z < 0.0f) {
+		vVelocity.z = 0.0f;
+		mDirection.z *= -1.0f;
+	}
+	if (vVelocity.z > 600.0f) {
+		vVelocity.z = 600.0f;
+		mDirection.z *= -1.0f;
+	}
 	// 범위를 벗어나면 방향 반대로, 위치 조정
-	mBox.Set(mBox.v + vVelocity, mBox.size.x, mBox.size.y, mBox.size.z); // 새로운 위치로 재정의
+	mBox.Set(vVelocity, mBox.size.x, mBox.size.y, mBox.size.z); // 새로운 위치로 재정의
+
+	// 충돌 검사?
+	
 }
 
 void DynamicObject::SetTarget(Vector3& vTarget)
 {
 	this->mTarget = vTarget;
 	mDirection = mTarget - mBox.v;
-	mDirection /= mDirection.Length(); // 정규화
+	mDirection /= mDirection.Length(); // 정규화 Normalize
 }

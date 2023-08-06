@@ -2,15 +2,17 @@
 #include "Utils.h"
 
 
+
 // why Object has Utils?
 // Object has Box, Point etc
 
 class Object
 {
 public:
-	int iObjIndex = -1;
+	int iNodeIndex = -1;
 	std::wstring wsName;
 	Box mBox;
+	int iListIndex = -1;
 
 
 	virtual void SetBox(Vector3& vPos, float w, float h, float d);
@@ -22,7 +24,7 @@ public:
 };
 
 
-class StaticObject : Object
+class StaticObject : public Object
 {
 public:
 
@@ -31,7 +33,7 @@ public:
 
 };
 
-class DynamicObject : Object
+class DynamicObject : public Object
 {
 public:
 	Vector3 mTarget;

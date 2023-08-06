@@ -1,14 +1,20 @@
 #pragma once
 #include "Node.h"
 
+using MyList = std::unordered_map<int, Object*>;
+extern MyList StaticObjList;
+extern MyList DynamicObjList;
+extern std::pair<int, int> rtn;
 
 class Octree
 {
 public:
 	Node* mpRootNode = nullptr;
 	int iNumCounter = -1;
-	std::set<Object> mStaticObjectList;
-	std::set<Object> mDynamicObjectList;
+	std::set<Node*> mNodeList_StaObj;
+	std::set<Node*> mNodeList_DynObj;
+
+	std::vector<Node*> NodeIndex;
 
 	void Run();
 	void BuildTree(Node* pParent);
@@ -24,8 +30,10 @@ public:
 
 	//
 	Node* FindNode(Node* pNode, Object* obj);
-	Node* AddStaticObject(Object* obj);
-	Node* AddDynamicObject(Object* obj);
+	bool AddStaticObject(Object* obj);
+	bool AddDynamicObject(Object* obj);
+
+	bool CheckCollision(Object* obj);
 	
 	// ¼øÈ¸
 	std::queue<Node*> Queue;

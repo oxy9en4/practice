@@ -1,29 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Node.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Octree.cpp">
       <Filter>Octree</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>afx</Filter>
     </ClCompile>
-    <ClCompile Include="Math.cpp" />
+    <ClCompile Include="Node.cpp">
+      <Filter>Octree</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Node.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="Utils.h" />
     <ClInclude Include="Octree.h">
       <Filter>Octree</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>afx</Filter>
     </ClInclude>
-    <ClInclude Include="Math.h" />
+    <ClInclude Include="Node.h">
+      <Filter>Octree</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Octree">
@@ -31,6 +53,15 @@
     </Filter>
     <Filter Include="afx">
       <UniqueIdentifier>{39d6e108-a137-4ff3-a581-4014c360af3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{26377a3f-3a51-4b3d-a237-e673d92335c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{23228a37-8ad5-4591-addd-e5144c6d8f6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{3a651bae-4278-40be-a6c7-84015c0675cd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -28,11 +28,11 @@ struct Box {
 	Box operator /(float f);
 
 
-	void Set(float w, float h, float d);
+	void Set(float fw, float fh, float fd);
 
-	void Set(float x, float y, float z, float w, float h, float d);
+	void Set(float fx, float fy, float fz, float fw, float fh, float fd);
 
-	void Set(Vector3 p, float w, float h, float d);
+	void Set(Vector3 p, float fw, float fh, float fd);
 
 	void Set(Vector3 p, Vector3 o);
 
@@ -41,15 +41,15 @@ struct Box {
 	static bool BoxToBox(Box& p, Box& t);
 
 
-	Box(Vector3 p, float w, float h, float d)
+	Box(Vector3 p, float fw, float fh, float fd)
 	{
-		Set(p.x, p.y, p.z, w, h, d);
+		Set(p.x, p.y, p.z, fw, fh, fd);
 	}
 
-	Box(float x, float y, float z, float w, float h, float d)
+	Box(float fx, float fy, float fz, float fw, float fh, float fd)
 	{
-		Set(x, y, z, w, h, d);
+		Set(fx, fy, fz, fw, fh, fd);
 	}
 
-	Box() = default;
+	Box() {};
 };

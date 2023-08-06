@@ -28,9 +28,9 @@ public:
 	Vector3 NormVector();
 
 	static float GetDistance(Vector3& p);
-
-	Vector3() = default;
-	Vector3(float fx, float fy, float fz) : x(fx), y(fy), z(fz) {}
+public:
+	Vector3();
+	Vector3(float fx, float fy, float fz);
 	
 };
 

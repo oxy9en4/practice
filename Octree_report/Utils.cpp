@@ -22,14 +22,15 @@ bool Box::operator !=(Box& p) {
 }
 
 Box Box::operator +(Box& p) {
-	float fMinX = min(v.x, p.v.x);
-	float fMinY = min(v.y, p.v.y);
-	float fMinZ = min(v.z, p.v.z);
+	Box tmp;
+	float fMinX = min(mMin.x, p.mMin.x);
+	float fMinY = min(mMin.y, p.mMin.y);
+	float fMinZ = min(mMin.z, p.mMin.z);
 	float fMaxX = max(mMax.x, p.mMax.x);
 	float fMaxY = max(mMax.y, p.mMax.y);
 	float fMaxZ = max(mMax.z, p.mMax.z);
 	Vector3 pivot = { fMinX, fMinY, fMinZ };
-	Box tmp(pivot, fMaxX - fMinX, fMaxY - fMinY, fMaxZ - fMinZ);
+	tmp.Set(pivot, fMaxX - fMinX, fMaxY - fMinY, fMaxZ - fMinZ);
 	return tmp;
 }
 
@@ -66,53 +67,52 @@ Box Box::operator /(float f) {
 }
 
 
-void Box::Set(float w, float h, float d) {
-	size.x = w;
-	size.y = h;
-	size.z = d;
-	mHalf = { w * 0.5f, h * 0.5f, d * 0.5f };
+void Box::Set(float fw, float fh, float fd) {
+	size.x = fw;
+	size.y = fh;
+	size.z = fd;
+	mHalf = { fw * 0.5f, fh * 0.5f, fd * 0.5f };
 	mPoint[0] = { v.x, v.y, v.z };
-	mPoint[1] = { v.x + w, v.y, v.z };
-	mPoint[2] = { v.x + w, v.y + h, v.z };
-	mPoint[3] = { v.x, v.y + h, v.z };
+	mPoint[1] = { v.x + fw, v.y, v.z };
+	mPoint[2] = { v.x + fw, v.y + fh, v.z };
+	mPoint[3] = { v.x, v.y + fh, v.z };
 
-	mPoint[4] = { v.x, v.y, v.z + d };
-	mPoint[5] = { v.x + w, v.y, v.z + d };
-	mPoint[6] = { v.x + w, v.y + h, v.z + d };
-	mPoint[7] = { v.x, v.y + h, v.z + d };
+	mPoint[4] = { v.x, v.y, v.z + fd };
+	mPoint[5] = { v.x + fw, v.y, v.z + fd };
+	mPoint[6] = { v.x + fw, v.y + fh, v.z + fd };
+	mPoint[7] = { v.x, v.y + fh, v.z + fd };
 
 	mMin = mPoint[0];
 	mMax = mPoint[6];
 	mCenter = (mMin + mMax) * 0.5f;
 }
 
-void Box::Set(float x, float y, float z, float w, float h, float d) {
-	v.x = x;
-	v.y = y;
-	v.z = z;
+void Box::Set(float fx, float fy, float fz, float fw, float fh, float fd) {
+	v = { fx, fy, fz };
 
-	Set(w, h, d);
+	Set(fw, fh, fd);
 }
 
-void Box::Set(Vector3 p, float w, float h, float d) {
-	v.x = p.x;
-	v.y = p.y;
-	v.z = p.z;
-	Set(w, h, d);
+void Box::Set(Vector3 p, float fw, float fh, float fd) {
+	v = { p.x, p.y, p.z };
+	Set(fw, fh, fd);
 }
 
 void Box::Set(Vector3 p, Vector3 o)
 {
-
+	v = { p.x, p.y, p.z };
+	Set(o.x, o.y, o.z);
 }
 
 
 bool Box::ToBox(Box& p) {
-	Box sum = (*this) + p;
-
-	if (sum.v.x - (size.x + p.size.x) < EPSILON
-		&& sum.v.y - (size.y + p.size.y) < EPSILON
-		&& sum.v.z - (size.z + p.size.z) < EPSILON)
+	Box sum = (*this) + p; // 제대로 더해지는지 확인
+	float fX = size.x + p.size.x;
+	float fY = size.y + p.size.y;
+	float fZ = size.z + p.size.z;
+	if (sum.size.x - fX <= EPSILON
+		&& sum.size.y - fY <= EPSILON
+		&& sum.size.z - fZ <= EPSILON)
 	{
 		return true;
 	}
