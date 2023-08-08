@@ -38,7 +38,7 @@ bool Timer::Frame()
 
 bool Timer::Render()
 {
-    std::cout << "[FPS]" << GetFPS() << "[GT}" << mfGameTimer << " [SPF]" << mfSPF << std::endl;
+    std::cout << "[FPS]" << GetFPS() << "[GT]" << mfGameTimer << " [SPF]" << mfSPF << std::endl;
     return true;
 }
 

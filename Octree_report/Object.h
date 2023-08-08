@@ -38,7 +38,7 @@ class DynamicObject : public Object
 public:
 	Vector3 mTarget;
 	Vector3 mDirection;
-	float fSpeed = 100.0f;
+	float fSpeed = 300.0f;
 
 	void Move(float fSPF) override;
 	void SetTarget(Vector3& vTarget) override;

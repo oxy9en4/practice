@@ -1,9 +1,14 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: 중간 디렉터리(x64\Debug\)에 다른 프로젝트(Practice0.vcxproj)에서 공유하는 파일이 포함되어 있습니다.  이로 인해 잘못된 정리 및 다시 빌드 동작이 수행될 수 있습니다.
+  Node.cpp
+  Object.cpp
+  Octree.cpp
+  Utils.cpp
   main.cpp
-D:\OSJ\Octree_report\main.cpp(11,16): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\OSJ\Octree_report\main.cpp(12,17): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\OSJ\Octree_report\main.cpp(13,16): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\OSJ\Octree_report\main.cpp(39,16): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\OSJ\Octree_report\main.cpp(40,17): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\OSJ\Octree_report\main.cpp(41,16): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\OSJ\Octree_report\main.cpp(12,16): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\OSJ\Octree_report\main.cpp(13,17): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\OSJ\Octree_report\main.cpp(14,16): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\OSJ\Octree_report\main.cpp(44,16): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\OSJ\Octree_report\main.cpp(45,17): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\OSJ\Octree_report\main.cpp(46,16): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
   Octree.vcxproj -> D:\OSJ\OSJ_Project_Sample\x64\Debug\Octree.exe

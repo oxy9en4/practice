@@ -4,6 +4,7 @@
 MyList StaticObjList;
 MyList DynamicObjList;
 std::pair<int, int> rtn = { -1, -1 };
+bool DToD = false;
 
 void Octree::Run()
 {
@@ -89,13 +90,11 @@ Node* Octree::FindNode(Node* pNode, Object* obj)
 bool Octree::AddStaticObject(Object* obj)
 {
 	Node* pFoundNode = FindNode(mpRootNode, obj);
-	if (pFoundNode != nullptr)
-	{
-		obj->iNodeIndex = pFoundNode->miIndex;
-		pFoundNode->mStaticObjectList.insert(obj);
-		mNodeList_StaObj.insert(pFoundNode);
-		return pFoundNode;
-	}
+	if (pFoundNode == nullptr) return false;
+
+	obj->iNodeIndex = pFoundNode->miIndex;
+	pFoundNode->mStaticObjectList.insert(obj);
+	mNodeList_StaObj.insert(pFoundNode);
 	return false;
 }
 
@@ -109,9 +108,7 @@ bool Octree::AddDynamicObject(Object* obj)
 		{
 			return true;
 		}
-
 	}
-
 	obj->iNodeIndex = pFoundNode->miIndex;
 	pFoundNode->mDynamicObjectList.insert(obj);
 	mNodeList_DynObj.insert(pFoundNode);
@@ -134,10 +131,28 @@ bool Octree::CheckCollision(Object* obj)
 
 			iter->mDynamicObjectList.erase(obj);
 			rtn.second = obj->iListIndex;
-			
+			DToD = true;
 
 			return true;
 			
+		}
+	}
+	for (auto target : iter->mStaticObjectList)
+	{
+		if (obj->mBox.ToBox(target->mBox)
+			&& obj != target)
+		{
+			iter->mStaticObjectList.erase(target);
+
+			rtn.first = target->iListIndex;
+
+
+			iter->mStaticObjectList.erase(obj);
+			rtn.second = obj->iListIndex;
+			DToD = false;
+
+			return true;
+
 		}
 	}
 	return false;
@@ -197,38 +212,7 @@ bool Octree::PostFrame()
 
 bool Octree::Render()
 {
-	/*if (pNode == nullptr) return;
-	std::wcout << L"[" << pNode->miDepth << L"]"
-		<< pNode->mBox.v.x << L", "
-		<< pNode->mBox.v.y << L", "
-		<< pNode->mBox.v.z << L", "
-		<< pNode->mBox.size.x << L", "
-		<< pNode->mBox.size.y << L", "
-		<< pNode->mBox.size.z << L", "
-		<< pNode->mStaticObjectList.size() << L", "
-		<< pNode->mDynamicObjectList.size() << std::endl;
-
-	for (int iobj = 0; iobj < pNode->mDynamicObjectList.size(); ++iobj)
-	{
-		std::wcout << "          " << L"<" << iobj << L">"
-			<< pNode->mDynamicObjectList[iobj]->wsName << L", "
-			<< pNode->mDynamicObjectList[iobj]->mBox.v.x << L", "
-			<< pNode->mDynamicObjectList[iobj]->mBox.v.y << L", "
-			<< pNode->mDynamicObjectList[iobj]->mBox.v.z << std::endl;
-	}
-	for (int i = 0; i < pNode->mpChild.size(); ++i)
-	{
-		if (pNode->mpChild[i] != nullptr)
-		{
-			Queue.push(pNode->mpChild[i]);
-		}
-	}
-	if (!Queue.empty())
-	{
-		Node* pNode = Queue.front();
-		Queue.pop();
-		LevelOrder(pNode);
-	}*/
+	
 	return true;
 }
 

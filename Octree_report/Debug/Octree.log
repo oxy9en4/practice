@@ -1,0 +1,8 @@
+﻿  main.cpp
+D:\OSJ\Octree_report\main.cpp(11,16): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\OSJ\Octree_report\main.cpp(12,17): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\OSJ\Octree_report\main.cpp(13,16): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\OSJ\Octree_report\main.cpp(37,16): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\OSJ\Octree_report\main.cpp(38,17): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\OSJ\Octree_report\main.cpp(39,16): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Octree.vcxproj -> D:\OSJ\Octree_report\Debug\Octree.exe

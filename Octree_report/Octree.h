@@ -5,6 +5,7 @@ using MyList = std::unordered_map<int, Object*>;
 extern MyList StaticObjList;
 extern MyList DynamicObjList;
 extern std::pair<int, int> rtn;
+extern bool DToD;
 
 class Octree
 {
