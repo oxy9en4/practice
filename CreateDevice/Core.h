@@ -1,7 +1,7 @@
 #pragma once
-#include "Window.h"
+#include "Device.h"
 
-class Core : public Window
+class Core : public Device
 {
 public:
 	virtual bool Init();

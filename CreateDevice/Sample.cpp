@@ -1,59 +1,113 @@
-#include "stdafx.h"   // wow! We just need windows.h for WinAPI!
+#include "stdafx.h" 
 #include "Sample.h"
 
 
-bool Sample::Init()
+bool Sample::CreateVertexBuffer()
 {
-	// 렌더링을 위한 DirectX 설정을 초기화
-	DXGI_SWAP_CHAIN_DESC SwapChainDesc;
-	ZeroMemory(&SwapChainDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
-	SwapChainDesc.BufferDesc.Width = 800;
-	SwapChainDesc.BufferDesc.Height = 800;
-	SwapChainDesc.BufferDesc.RefreshRate.Numerator = 60;
-	SwapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
-	SwapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	SwapChainDesc.SampleDesc.Count = 1;
-	SwapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	SwapChainDesc.BufferCount = 1;
-	SwapChainDesc.OutputWindow = m_hWnd;
-	SwapChainDesc.Windowed = true;
+	P_Vertex vList[3];
+	vList[0].x = 0.0f; vList[0].y = 0.5f; vList[0].z = 0.5f;
+	vList[1].x = 0.5f; vList[1].y = -0.5f; vList[1].z = 0.5f;
+	vList[2].x = -0.5f; vList[2].y = -0.5f; vList[2].z = 0.5f;
 
-	D3D_DRIVER_TYPE DriverType = D3D_DRIVER_TYPE_HARDWARE;
-	UINT Flags = 0;
-	D3D_FEATURE_LEVEL pFeatureLevels = D3D_FEATURE_LEVEL_11_0;
-	// 1) DirectX 디바이스와 스왑 체인을 생성
-	HRESULT hr = D3D11CreateDeviceAndSwapChain(
-		NULL,
-		DriverType,
-		NULL,
-		Flags,
-		&pFeatureLevels, 1,
-		D3D11_SDK_VERSION,
-		&SwapChainDesc,
+	D3D11_BUFFER_DESC Desc;
+	ZeroMemory(&Desc, sizeof(Desc));
+	Desc.ByteWidth = sizeof(P_Vertex) * 3;
+	Desc.Usage = D3D11_USAGE_DEFAULT;
+	Desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
-		&m_pSwapChain,
-		&m_pDevice,
-		NULL,
-		&m_pImmediateContext);
+	D3D11_SUBRESOURCE_DATA InitialData;
+	ZeroMemory(&InitialData, sizeof(InitialData));
+	InitialData.pSysMem = vList;
+
+	HRESULT hr = m_pDevice->CreateBuffer(
+		&Desc,
+		&InitialData,
+		&m_pVertexBuffer);
+	if (FAILED(hr)) return false;
+	return true;
+}
+
+bool Sample::LoadVertexShader()
+{
+	ID3DBlob* ErrorCode;
+	HRESULT hr = D3DCompileFromFile(
+		L"VertexShader.vsh",
+		nullptr,
+		nullptr,
+		"VS",
+		"vs_5_0",
+		0,
+		0,
+		&m_pVertexShaderCode,
+		&ErrorCode);
 	if (FAILED(hr))
 	{
-		return false; // 디바이스 생성이 실패하면 false 반환
+		// Code for Error Situation	}
 	}
-	// 2) get BackBuffer and
-	ID3D11Texture2D* pBackBuffer;
-	hr = m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
-	if (SUCCEEDED(hr))
+	hr = m_pDevice->CreateVertexShader(
+		m_pVertexShaderCode->GetBufferPointer(),
+		m_pVertexShaderCode->GetBufferSize(),
+		nullptr,
+		&m_pVS);
+	if (ErrorCode) ErrorCode->Release();
+	return true;
+}
+
+
+bool Sample::LoadPixelShader()
+{
+	ID3DBlob* ShaderCode;
+	ID3DBlob* ErrorCode;
+	
+	HRESULT hr = D3DCompileFromFile(
+			L"PixelShader.psh",
+			nullptr,
+			nullptr,
+			"PS",
+			"ps_5_0",
+			0,
+			0,
+			&ShaderCode,
+			&ErrorCode);
+
+	if (FAILED(hr))
 	{
-		// 3) Create Render Target
-		hr = m_pDevice->CreateRenderTargetView(pBackBuffer, NULL, &m_pRenderTargetView);
-		if (FAILED(hr))
-		{
-			pBackBuffer->Release();
-			return false;
-		}
-		m_pImmediateContext->OMSetRenderTargets(1, &m_pRenderTargetView, NULL);
+		// Code for Error Situation
 	}
-	pBackBuffer->Release();
+
+	hr = m_pDevice->CreatePixelShader(
+		ShaderCode->GetBufferPointer(),
+		ShaderCode->GetBufferSize(),
+		nullptr,
+		&m_pPS);
+	if (ShaderCode) ShaderCode->Release();
+	if (ErrorCode) ErrorCode->Release();
+	return true;
+}
+
+bool Sample::CreateInputLayout()
+{
+	const D3D11_INPUT_ELEMENT_DESC layout[] =
+	{
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+	};
+	UINT iNumCount = sizeof(layout) / sizeof(layout[0]);
+	HRESULT hr = m_pDevice->CreateInputLayout(
+		layout ,
+		iNumCount,
+		m_pVertexShaderCode->GetBufferPointer(),
+		m_pVertexShaderCode->GetBufferSize(),
+		&m_pVertexLayout);
+	if (FAILED(hr)) return false;
+	return true;
+}
+
+bool Sample::Init()
+{
+	this->CreateVertexBuffer();
+	this->LoadVertexShader();
+	this->LoadPixelShader();
+	this->CreateInputLayout();
 	return true;
 }
 
@@ -64,27 +118,26 @@ bool Sample::Frame()
 
 bool Sample::Render()
 {
-	float color[4] = { 0.343f, 0.34522f, 0.64333f, 1 };
-	// 렌더 타겟 뷰를 지정된 색상으로 지움.
-	m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView, color);
-	// 지형, 캐릭터, 오브젝트, 이펙트, 인터페이스
-	// 스왑 체인을 통해 화면에 렌더링한 내용을 표시
-	HRESULT hr = m_pSwapChain->Present(0, 0);
-	if (FAILED(hr))
-	{
-		return false; // 스왑 체인을 통한 표시가 실패한 경우 false 반환
-	}
+	m_pImmediateContext->IASetInputLayout(m_pVertexLayout);
+	m_pImmediateContext->VSSetShader(m_pVS, NULL, 0);
+	m_pImmediateContext->PSSetShader(m_pPS, NULL, 0);
+	UINT stride = sizeof(P_Vertex);
+	UINT offset = 0;
+	m_pImmediateContext->IASetVertexBuffers(0, 1, &m_pVertexBuffer, &stride, &offset);
+	m_pImmediateContext->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	m_pImmediateContext->Draw(3, 0);
 	return true;
+
 }
 
 bool Sample::Release()
 {
-
-	// 자원을 해제하고 메모리 정리
-	if (m_pSwapChain) m_pSwapChain->Release();
-	if (m_pDevice) m_pDevice->Release();
-	if (m_pImmediateContext) m_pImmediateContext->Release();
+	if (m_pVertexBuffer) m_pVertexBuffer->Release();
+	if (m_pVertexLayout) m_pVertexLayout->Release();
+	if (m_pVS) m_pVS->Release();
+	if (m_pPS) m_pPS->Release();
 	return true;
+
 }
 
 GAME(L"KGCA", 800, 600) // 게임 진입점 및 설정을 정의하는 매크로

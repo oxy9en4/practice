@@ -25,8 +25,8 @@ bool Window::SetRegisterClassWindow(HINSTANCE hInstance)
     wcex.style = CS_HREDRAW | CS_VREDRAW;               // Redraw window when resized horizonally or vertically
     wcex.lpfnWndProc = WndProc;                         // Set the window procedure to handle window events
     wcex.hInstance = hInstance;
-    wcex.hbrBackground = (HBRUSH)CreateSolidBrush(RGB(255, 0, 0)); // Set the background color
-    wcex.hCursor = LoadCursor(nullptr, IDC_CROSS);      // Set the Cursor shape
+    wcex.hbrBackground = (HBRUSH)CreateSolidBrush(RGB(0, 0, 0)); // Set the background color
+    wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);      // Set the Cursor shape
     wcex.lpszClassName = L"KGCA Window";                // Set the window class name
     WORD ret = RegisterClassExW(&wcex);                 // Register the window class
 	return true;

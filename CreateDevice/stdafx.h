@@ -1,8 +1,16 @@
 #pragma once
 #include <Windows.h>
 #include <string>
+#include <assert.h>
 #include <d3d11.h>
-#pragma comment (lib, "d3d11.lib") // d3d11.dll
+#include <dxgi.h>
+#include <d3dcompiler.h>
+
+
+
+#pragma comment (lib, "d3d11.lib") // 
+#pragma comment (lib, "dxgi.lib") // 
+#pragma comment (lib, "d3dcompiler.lib") // 
 
 
 // Define a macro to start the game loop

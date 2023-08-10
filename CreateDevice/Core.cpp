@@ -24,8 +24,10 @@ bool Core::Run()
 		else
 		{
 			// Update frame and render if no messages
-			EngineFrame();
-			EngineRender();
+			if (!EngineFrame() || !EngineRender())
+			{
+				break;
+			}
 		}
 	}
 	EngineRelease(); // Release Engine resources
@@ -34,24 +36,29 @@ bool Core::Run()
 
 bool Core::EngineInit()
 {
+	Device::Init();
 	Init();
 	return true;
 }
 
 bool Core::EngineFrame()
 {
+	Device::Frame();
 	Frame();
 	return true;
 }
 
 bool Core::EngineRender()
 {
+	Device::PreRender();
 	Render();
+	Device::PostRender();
 	return true;
 }
 
 bool Core::EngineRelease()
 {
 	Release();
+	Device::Release();
 	return true;
 }
