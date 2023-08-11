@@ -4,20 +4,20 @@
 
 bool Sample::CreateVertexBuffer()
 {
-	P_Vertex vList[3];
-	vList[0].x = 0.0f; vList[0].y = 0.5f; vList[0].z = 0.5f;
-	vList[1].x = 0.5f; vList[1].y = -0.5f; vList[1].z = 0.5f;
-	vList[2].x = -0.5f; vList[2].y = -0.5f; vList[2].z = 0.5f;
+	m_VertexList.resize(10);
+	m_VertexList[0].x = 0.0f; m_VertexList[0].y = 0.5f; m_VertexList[0].z = 0.5f;
+	m_VertexList[1].x = 0.5f; m_VertexList[1].y = -0.5f; m_VertexList[1].z = 0.5f;
+	m_VertexList[2].x = -0.5f; m_VertexList[2].y = -0.5f; m_VertexList[2].z = 0.5f;
 
 	D3D11_BUFFER_DESC Desc;
 	ZeroMemory(&Desc, sizeof(Desc));
-	Desc.ByteWidth = sizeof(P_Vertex) * 3;
+	Desc.ByteWidth = sizeof(P_Vertex) * m_VertexList.size();
 	Desc.Usage = D3D11_USAGE_DEFAULT;
 	Desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
 	D3D11_SUBRESOURCE_DATA InitialData;
 	ZeroMemory(&InitialData, sizeof(InitialData));
-	InitialData.pSysMem = vList;
+	InitialData.pSysMem = &m_VertexList.at(0);
 
 	HRESULT hr = m_pDevice->CreateBuffer(
 		&Desc,
@@ -125,7 +125,7 @@ bool Sample::Render()
 	UINT offset = 0;
 	m_pImmediateContext->IASetVertexBuffers(0, 1, &m_pVertexBuffer, &stride, &offset);
 	m_pImmediateContext->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	m_pImmediateContext->Draw(3, 0);
+	m_pImmediateContext->Draw(m_VertexList.size(), 0);
 	return true;
 
 }

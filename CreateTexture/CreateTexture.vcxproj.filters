@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <FxCompile Include="PixelShader.psh" />
+    <FxCompile Include="VertexShader.vsh" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Core.cpp" />
+    <ClCompile Include="Device.cpp" />
+    <ClCompile Include="Sample.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="WIC\WICTextureLoader.cpp">
+      <Filter>WIC</Filter>
+    </ClCompile>
+    <ClCompile Include="WIC\ScreenGrab.cpp">
+      <Filter>WIC</Filter>
+    </ClCompile>
+    <ClCompile Include="WIC\DDSTextureLoader.cpp">
+      <Filter>WIC</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core.h" />
+    <ClInclude Include="Device.h" />
+    <ClInclude Include="Sample.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Window.h" />
+    <ClInclude Include="WIC\WICTextureLoader.h">
+      <Filter>WIC</Filter>
+    </ClInclude>
+    <ClInclude Include="WIC\ScreenGrab.h">
+      <Filter>WIC</Filter>
+    </ClInclude>
+    <ClInclude Include="WIC\PlatformHelpers.h">
+      <Filter>WIC</Filter>
+    </ClInclude>
+    <ClInclude Include="WIC\pch.h">
+      <Filter>WIC</Filter>
+    </ClInclude>
+    <ClInclude Include="WIC\LoaderHelpers.h">
+      <Filter>WIC</Filter>
+    </ClInclude>
+    <ClInclude Include="WIC\DirectXHelpers.h">
+      <Filter>WIC</Filter>
+    </ClInclude>
+    <ClInclude Include="WIC\DDSTextureLoader.h">
+      <Filter>WIC</Filter>
+    </ClInclude>
+    <ClInclude Include="WIC\DDS.h">
+      <Filter>WIC</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="WIC">
+      <UniqueIdentifier>{92ca3e80-90e8-47dc-b70a-bab80b420876}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
