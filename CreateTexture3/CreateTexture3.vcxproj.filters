@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <FxCompile Include="Plane.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Core.cpp" />
+    <ClCompile Include="Device.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Sample.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="WIC\DDSTextureLoader.cpp">
+      <Filter>WIC</Filter>
+    </ClCompile>
+    <ClCompile Include="WIC\ScreenGrab.cpp">
+      <Filter>WIC</Filter>
+    </ClCompile>
+    <ClCompile Include="WIC\WICTextureLoader.cpp">
+      <Filter>WIC</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderMgr.cpp" />
+    <ClCompile Include="TextureMgr.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core.h" />
+    <ClInclude Include="Device.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="Sample.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Window.h" />
+    <ClInclude Include="WIC\DDS.h">
+      <Filter>WIC</Filter>
+    </ClInclude>
+    <ClInclude Include="WIC\DDSTextureLoader.h">
+      <Filter>WIC</Filter>
+    </ClInclude>
+    <ClInclude Include="WIC\DirectXHelpers.h">
+      <Filter>WIC</Filter>
+    </ClInclude>
+    <ClInclude Include="WIC\LoaderHelpers.h">
+      <Filter>WIC</Filter>
+    </ClInclude>
+    <ClInclude Include="WIC\pch.h">
+      <Filter>WIC</Filter>
+    </ClInclude>
+    <ClInclude Include="WIC\PlatformHelpers.h">
+      <Filter>WIC</Filter>
+    </ClInclude>
+    <ClInclude Include="WIC\ScreenGrab.h">
+      <Filter>WIC</Filter>
+    </ClInclude>
+    <ClInclude Include="WIC\WICTextureLoader.h">
+      <Filter>WIC</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderMgr.h" />
+    <ClInclude Include="TextureMgr.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="WIC">
+      <UniqueIdentifier>{9a859347-3a95-4f40-8d57-aef9e44ffe8c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

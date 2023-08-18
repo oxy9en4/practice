@@ -81,37 +81,7 @@ bool Object::LoadVertexShader()
 }
 
 
-bool Object::LoadPixelShader()
-{
-	ID3DBlob* ShaderCode;
-	ID3DBlob* ErrorCode;
 
-	HRESULT hr = D3DCompileFromFile(
-		L"PixelShader.psh",
-		nullptr,
-		nullptr,
-		"PS",
-		"ps_5_0",
-		0,
-		0,
-		&ShaderCode,
-		&ErrorCode);
-	char* d;
-	if (FAILED(hr))
-	{
-		d = (char*)ErrorCode->GetBufferPointer();
-		// Code for Error Situation	}
-	}
-
-	hr = m_pDevice->CreatePixelShader(
-		ShaderCode->GetBufferPointer(),
-		ShaderCode->GetBufferSize(),
-		nullptr,
-		&m_pPS);
-	if (ShaderCode) ShaderCode->Release();
-	if (ErrorCode) ErrorCode->Release();
-	return true;
-}
 
 bool Object::CreateInputLayout()
 {
