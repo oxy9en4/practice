@@ -5,11 +5,7 @@
     <FxCompile Include="VertexShader.vsh" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Core.cpp" />
-    <ClCompile Include="Device.cpp" />
     <ClCompile Include="Sample.cpp" />
-    <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="Window.cpp" />
     <ClCompile Include="WIC\WICTextureLoader.cpp">
       <Filter>WIC</Filter>
     </ClCompile>
@@ -19,13 +15,22 @@
     <ClCompile Include="WIC\DDSTextureLoader.cpp">
       <Filter>WIC</Filter>
     </ClCompile>
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Core.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Device.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core.h" />
-    <ClInclude Include="Device.h" />
     <ClInclude Include="Sample.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Window.h" />
     <ClInclude Include="WIC\WICTextureLoader.h">
       <Filter>WIC</Filter>
     </ClInclude>
@@ -50,10 +55,26 @@
     <ClInclude Include="WIC\DDS.h">
       <Filter>WIC</Filter>
     </ClInclude>
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="Core.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Device.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="WIC">
       <UniqueIdentifier>{92ca3e80-90e8-47dc-b70a-bab80b420876}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{739cf333-c898-47b0-89f2-316984c1c9d5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

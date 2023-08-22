@@ -1,15 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <FxCompile Include="Plane.hlsl" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Core.cpp" />
-    <ClCompile Include="Device.cpp" />
-    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Sample.cpp" />
-    <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="Window.cpp" />
     <ClCompile Include="WIC\DDSTextureLoader.cpp">
       <Filter>WIC</Filter>
     </ClCompile>
@@ -19,16 +11,47 @@
     <ClCompile Include="WIC\WICTextureLoader.cpp">
       <Filter>WIC</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderMgr.cpp" />
-    <ClCompile Include="TextureMgr.cpp" />
+    <ClCompile Include="Object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderMgr.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureMgr.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Device.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="NpcObj.cpp" />
+    <ClCompile Include="DxObject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core.h" />
-    <ClInclude Include="Device.h" />
-    <ClInclude Include="Object.h" />
     <ClInclude Include="Sample.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Window.h" />
     <ClInclude Include="WIC\DDS.h">
       <Filter>WIC</Filter>
     </ClInclude>
@@ -53,12 +76,68 @@
     <ClInclude Include="WIC\WICTextureLoader.h">
       <Filter>WIC</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderMgr.h" />
-    <ClInclude Include="TextureMgr.h" />
+    <ClInclude Include="Object.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderMgr.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureMgr.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Device.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="NpcObj.h" />
+    <ClInclude Include="DxObject.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="WIC">
       <UniqueIdentifier>{9a859347-3a95-4f40-8d57-aef9e44ffe8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{32967982-138e-4bc4-9d5b-47716cbae4ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{3948be38-1c05-43e9-b3c6-5a43fea18b4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{ea6d8dae-4a6b-4abf-8330-1f4c134b4a20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{8706d969-c78f-44e5-b031-62366b4b1d75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{9a2bade6-434c-4382-a7c1-632e496515b4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Plane.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

@@ -1,9 +1,11 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
 #include <Windows.h>
 #include <string>
 #include <vector>
 #include <memory>
+#include <math.h>
 
 #include <map>
 #include <unordered_map>
@@ -19,11 +21,12 @@
 #pragma comment (lib, "dxgi.lib") // 
 #pragma comment (lib, "d3dcompiler.lib") // 
 #pragma comment (lib, "DirectXTex.lib")
+#pragma comment (lib, "winmm.lib") // used for timeGetTime()
 
-#define T_PI (3.141592f)
-#define T_EPSILON ( 0.0001f)
-#define RadianToDegree(radian) ( radian *( 180.0f / T_PI))
-#define DegreeToRadian(degree) ( degree *( T_PI / 180.0f))
+#define PI (3.141592f)
+#define EPSILON ( 0.0001f)
+#define RadianToDegree(radian) ( radian *( 180.0f / PI))
+#define DegreeToRadian(degree) ( degree *( PI / 180.0f))
 #define randstep(fmin, fmax) ((float)fmin + ((float)fmax - (float)fmin) * rand() / RAND_MAX)
 // Define a macro to start the game loop
 #define GAME_START int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow) { Sample win;
@@ -34,3 +37,16 @@
 
 // Define a macro to set up and run the game loop with window title, width and height
 #define GAME(s, w, h) GAME_START;GAME_REGISTER;GAME_WINDOW(s,w,h);GAME_RUN;GAME_END;
+
+static float g_fMapSizeX = 3000.0f;
+static float g_fMapSizeY = 3000.0f;
+
+static void DebugString(const WCHAR* msg)
+{
+#ifdef _DEBUG
+	OutputDebugString(msg);
+#endif
+}
+extern HWND g_hWnd;
+extern float g_fGameTimer;
+extern float g_fSPF;

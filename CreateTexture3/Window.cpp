@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Window.h"
+HWND g_hWnd;
 
 // Window Procedure : Handles window messages
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -60,7 +61,9 @@ bool Window::SetWindow(const WCHAR* szTitle, // std::wstring szTitle,
     {
         return FALSE;
     }
+
     // Show the window
+    g_hWnd = m_hWnd;
     ShowWindow(m_hWnd, SW_SHOWNORMAL);
 	return true;
 }
