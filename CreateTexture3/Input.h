@@ -29,3 +29,4 @@ public:
 	~Input() {}
 };
 
+#define I_Input Input::GetInstance()

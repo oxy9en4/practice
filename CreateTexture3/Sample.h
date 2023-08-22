@@ -1,19 +1,25 @@
 #pragma once
 #include "Core.h"
-#include "Object.h"
+#include "Player.h"
+#include "NpcObj.h"
+#include "ShaderMgr.h"
+#include "TextureMgr.h"
+
 
 
 
 
 class Sample : public Core
 {
-	TextureMgr m_texMgr;
-	ShaderMgr m_shaderMgr;
-	std::vector<Object*> m_ObjList;
+	Object* m_pMapObj = nullptr;
+	Object* m_pPlayer = nullptr;
+	std::vector<Object*> m_NpcList;
 	ID3D11BlendState *m_AlphaBlend = nullptr;
 public:
 	bool Init();
 	bool Frame();
 	bool Render();
 	bool Release();
+public:
+	void CreateBlendState();
 };

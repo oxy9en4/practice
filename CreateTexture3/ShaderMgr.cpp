@@ -145,6 +145,17 @@ bool ShaderMgr::Get(std::wstring key, Shader& ret)
 	return true;
 }
 
+bool ShaderMgr::Release()
+{
+	for (auto& data : m_list)
+	{
+		data.second->Release();
+		delete data.second;
+	}
+	m_list.clear();
+	return true;
+}
+
 
 
 ShaderMgr::ShaderMgr()

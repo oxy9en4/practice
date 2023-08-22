@@ -61,6 +61,17 @@ void TextureMgr::Set(ID3D11Device* pDevice, ID3D11DeviceContext* pImmediateConte
 	m_pImmediateContext = pImmediateContext;
 }
 
+bool TextureMgr::Release()
+{
+	for (auto& data : m_list)
+	{
+		data.second->Release();
+		delete data.second;
+	}
+	m_list.clear();
+	return true;
+}
+
 const Texture* TextureMgr::Load(std::wstring szFullFilepath)
 {
 	std::size_t found = szFullFilepath.find_last_of(L"/");

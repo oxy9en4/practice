@@ -1,8 +1,17 @@
 #pragma once
+#include "stdafx.h"
+#include "Timer.h"
+#include "Camera.h"
+#include "Input.h"
+#include "ShaderMgr.h"
+#include "TextureMgr.h"
 #include "Device.h"
 
 class Core : public Device
 {
+public:
+	Timer m_GameTimer;
+	Camera m_MainCamera;
 public:
 	virtual bool Init();
 	virtual bool Frame();

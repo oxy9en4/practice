@@ -5,14 +5,14 @@
 
 
 
-void Object::Set(ID3D11Device* pDevice, ID3D11DeviceContext* pImmediateContext)
+void DxObject::Set(ID3D11Device* pDevice, ID3D11DeviceContext* pImmediateContext)
 {
 	m_pDevice = pDevice;
 	m_pImmediateContext = pImmediateContext;
 }
 
 
-bool Object::CreateVertexBuffer()
+bool DxObject::CreateVertexBuffer()
 {
 	/*m_VertexList.resize(6);
 	m_VertexList[0].u = 0.0f; m_VertexList[0].v = 0.0f;
@@ -51,25 +51,28 @@ bool Object::CreateVertexBuffer()
 	return true;
 }
 
-bool Object::CreateInputLayout()
+bool DxObject::CreateInputLayout()
 {
 	const D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "POS", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXTURE" , 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 	UINT iNumCount = sizeof(layout) / sizeof(layout[0]);
-	HRESULT hr = m_pDevice->CreateInputLayout(
-		layout,
-		iNumCount,
-		m_pShader->GetBufferPointer(),
-		m_pShader->GetBufferSize(),
-		&m_pVertexLayout);
-	if (FAILED(hr)) return false;
+	if (m_pShader)
+	{
+		HRESULT hr = m_pDevice->CreateInputLayout(
+			layout,
+			iNumCount,
+			m_pShader->GetBufferPointer(),
+			m_pShader->GetBufferSize(),
+			&m_pVertexLayout);
+		if (FAILED(hr)) return false;
+	}
 	return true;
 }
 
-bool Object::CreateConstantBuffer()
+bool DxObject::CreateConstantBuffer()
 {
 	D3D11_BUFFER_DESC desc;
 	ZeroMemory(&desc, sizeof(desc));
@@ -89,28 +92,20 @@ bool Object::CreateConstantBuffer()
 }
 
 
-bool Object::Create(TextureMgr& texMgr, std::wstring TexFilename,
-	ShaderMgr& shaderMgr, std::wstring shaderFilename)
-{
-	CreateVertexBuffer();
-	m_pShader = shaderMgr.Load(shaderFilename);
-	CreateInputLayout();
-	m_pTex = texMgr.Load(TexFilename);
-	return true;
-}
-
-bool Object::Init()
+bool DxObject::Init()
 {
 	return true;
 }
 
-bool Object::Frame()
+bool DxObject::Frame()
 {
 	return true;
 }
 
-bool Object::Render()
+bool DxObject::Render()
 {
+	m_pImmediateContext->VSSetConstantBuffers(0,1,&m_pConstantBuffer);
+
 	ID3D11ShaderResourceView* pTexSRV = nullptr;
 	if (m_pTex)
 	{
@@ -123,7 +118,7 @@ bool Object::Render()
 		m_pShader->Apply(m_pImmediateContext, 0);
 	}
 
-	UINT stride = sizeof(P_Vertex);
+	UINT stride = sizeof(PT_Vertex);
 	UINT offset = 0;
 	m_pImmediateContext->IASetVertexBuffers(0, 1, &m_pVertexBuffer, &stride, &offset);
 	m_pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -132,7 +127,7 @@ bool Object::Render()
 
 }
 
-bool Object::Release()
+bool DxObject::Release()
 {
 	if (m_pVertexBuffer) m_pVertexBuffer->Release();
 	if (m_pVertexLayout) m_pVertexLayout->Release();

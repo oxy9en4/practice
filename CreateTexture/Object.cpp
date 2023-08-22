@@ -1,3 +1,8 @@
+#include "..\CreateTexture3\Object.h"
+#include "..\CreateTexture3\Object.h"
+#include "..\CreateTexture3\Object.h"
+#include "..\CreateTexture3\Object.h"
+#include "..\CreateTexture3\Object.h"
 #include "stdafx.h"
 #include "Object.h"
 #include "./WIC/DDSTextureLoader.h"
@@ -126,6 +131,19 @@ bool Object::Create(std::wstring texFilename)
 	return true;
 }
 
+void Object::SetPos(Vector3 p)
+{
+}
+
+void Object::SetScale(Vector3 s)
+{
+}
+
+bool Object::Create(std::wstring shaderFilename, std::wstring texFilename)
+{
+	return false;
+}
+
 bool Object::Init()
 {
 	return true;
@@ -160,4 +178,12 @@ bool Object::Release()
 	if (m_pPS) m_pPS->Release();
 	return true;
 
+}
+
+void Object::Setmatrix(Matrix* matWorld, Matrix* matView, Matrix* matProj)
+{
+}
+
+Object::Object()
+{
 }

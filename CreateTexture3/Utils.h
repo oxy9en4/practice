@@ -1,6 +1,37 @@
 #pragma once
+#include "stdafx.h"
 #include "Math.h"
 
+struct Rect
+{
+	bool mbEnable = true;
+	float m_fWidth = 0.0f;
+	float m_fHeight = 0.0f;
+	Vector2 m_Point[4];
+	Vector2 m_Center;
+	Vector2 m_Half;
+	Vector2 m_Min;
+	Vector2 m_Max;
+	Vector2 v;
+	Vector2 s;
+
+	bool operator == (Rect& p);
+	bool operator != (Rect& p);
+	Rect operator + (Rect& p);
+	Rect operator - (Rect& p);
+	Rect operator - (Vector2& p);
+	Rect operator * (float fValue);
+	Rect operator / (float fValue);
+	void Set(Vector2 p);
+	void Set(float fw, float fh);
+	void Set(Vector2 p, float fw, float fh);
+	void Set(float fx, float fy, float fw, float fh);
+
+	bool ToRect(Rect& rt);
+	bool ToPoint(Vector2& p);
+	Rect();
+	Rect(float fx, float fy, float fw, float fh);
+};
 
 
 // make classes for  octree
@@ -29,11 +60,8 @@ struct Box {
 
 
 	void Set(float fw, float fh, float fd);
-
 	void Set(float fx, float fy, float fz, float fw, float fh, float fd);
-
 	void Set(Vector3 p, float fw, float fh, float fd);
-
 	void Set(Vector3 p, Vector3 o);
 
 	bool ToBox(Box& p);
@@ -52,4 +80,16 @@ struct Box {
 	}
 
 	Box() {};
+};
+
+struct Sphere
+{
+	Vector3 vCenter;
+	float fRadius;
+};
+
+struct Circle
+{
+	Vector2 vCenter;
+	float fRadius;
 };

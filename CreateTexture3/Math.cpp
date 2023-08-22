@@ -107,6 +107,23 @@ Vector3& Vector3::operator +=(Vector3 p) {
 	z += p.z;
 	return *this;
 }
+Vector3 Vector3::operator*(Matrix const& m)
+{
+	Vector4 t;
+	t.x = x * m._11 + y * m._21 + z * m._31 + 1.0f * m._41;
+	t.y = x * m._12 + y * m._22 + z * m._32 + 1.0f * m._42;
+	t.z = x * m._13 + y * m._23 + z * m._33 + 1.0f * m._43;
+	t.w = x * m._14 + y * m._24 + z * m._34 + 1.0f * m._44;
+
+	if (fabs(t.w - 0.0f) > EPSILON) // t.w가 0이 아니라면
+	{
+		t.x /= t.w;
+		t.y /= t.w;
+		t.z /= t.w;
+		t.w /= t.w;
+	}
+	return Vector3();
+}
 float Vector3::Angle(Vector3& p) {
 	Vector3 a = NormVector();
 	Vector3 b = p.NormVector();

@@ -47,8 +47,18 @@
     <ClCompile Include="Math.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="NpcObj.cpp" />
-    <ClCompile Include="DxObject.cpp" />
+    <ClCompile Include="PlaneObj.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="NpcObj.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="DxObject.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h" />
@@ -112,8 +122,21 @@
     <ClInclude Include="Input.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="NpcObj.h" />
-    <ClInclude Include="DxObject.h" />
+    <ClInclude Include="PlaneObj.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="NpcObj.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="DxObject.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="WIC">

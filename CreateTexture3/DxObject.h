@@ -10,7 +10,7 @@ struct CB_Data
 	Matrix matView;
 	Matrix matProj;
 };
-struct P_Vertex
+struct PT_Vertex
 {
 	Vector3 p;
 	Vector2 t;
@@ -27,7 +27,7 @@ public:
 	const Shader* m_pShader = nullptr;
 	const Texture* m_pTex = nullptr;
 	CB_Data m_cbData;
-	std::vector<P_Vertex>	m_VertexList;
+	std::vector<PT_Vertex>	m_VertexList;
 
 public:
 	void Set(ID3D11Device* pDevice, ID3D11DeviceContext* pImmediateContext);
@@ -36,12 +36,12 @@ public:
 	virtual bool CreateConstantBuffer();
 
 public:
-	virtual bool Create(TextureMgr& texMgr, std::wstring TexFilename,
-		ShaderMgr& shaderMgr, std::wstring shaderFilename);
 	virtual bool Init();
 	virtual bool Frame();
 	virtual bool Render();
 	virtual bool Release();
 
+public:
+	virtual ~DxObject() {};
 };
 

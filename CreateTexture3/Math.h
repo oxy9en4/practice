@@ -100,6 +100,7 @@ public:
 	Vector3& operator /=(float f);
 	Vector3& operator *=(float f);
 	Vector3& operator +=(Vector3 p);
+	Vector3 operator *(Matrix const& m);
 	float Angle(Vector3& p);
 
 	float Length();
@@ -188,6 +189,7 @@ class Plane
 
 class Matrix : public Float4x4
 {
+public:
 	Matrix()
 	{
 		Identity();
@@ -242,13 +244,13 @@ class Matrix : public Float4x4
 		return m[iRow][icol];
 	}
 
-	void Translation(const Vector3& v)
+	void Translate(const Vector3& v)
 	{
 		_41 = v.x;
 		_42 = v.y;
 		_43 = v.z;
 	}
-	void Translation(float x, float y, float z)
+	void Translate(float x, float y, float z)
 	{
 		_41 = x;
 		_42 = y;
@@ -282,8 +284,8 @@ class Matrix : public Float4x4
 	}
 	void ZRotate(float fRadian)
 	{
-		float fCos = cos(fRadian);
-		float fSin = sin(fRadian);
+		float fCos = cosf(fRadian);
+		float fSin = sinf(fRadian);
 		_11 = fCos;  _12 = fSin;
 		_21 = -fSin; _22 = fCos;
 	}
