@@ -180,7 +180,7 @@ bool Object::Release()
 
 }
 
-void Object::Setmatrix(Matrix* matWorld, Matrix* matView, Matrix* matProj)
+void Object::SetMatrix(Matrix* matWorld, Matrix* matView, Matrix* matProj)
 {
 }
 

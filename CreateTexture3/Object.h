@@ -25,7 +25,7 @@ public:
 	virtual bool Frame() override;
 	virtual bool Render() override;
 	virtual bool Release() override;
-	virtual void Setmatrix(Matrix* matWorld, Matrix* matView, Matrix* matProj);
+	virtual void SetMatrix(Matrix* matWorld, Matrix* matView, Matrix* matProj);
 	virtual void Move(float fSecond) {};
 public:
 	Object();

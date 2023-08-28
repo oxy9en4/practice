@@ -96,7 +96,7 @@ bool Sample::Frame() {
 bool Sample::Render() {
 	m_pImmediateContext->OMSetBlendState(m_AlphaBlend, 0, -1);
 	m_MainCamera.m_vCameraPos = m_pPlayer->m_vPos;
-	m_pMapObj->Setmatrix(nullptr, &m_MainCamera.m_matView,
+	m_pMapObj->SetMatrix(nullptr, &m_MainCamera.m_matView,
 									&m_MainCamera.m_matOrthoProj);
 	m_pMapObj->Render();
 
@@ -105,13 +105,13 @@ bool Sample::Render() {
 	{
 		if (obj->m_bDead == false)
 		{
-			obj->Setmatrix(nullptr, &m_MainCamera.m_matView,
+			obj->SetMatrix(nullptr, &m_MainCamera.m_matView,
 				&m_MainCamera.m_matOrthoProj);
 			obj->Render();
 			gamefinish = false;
 		}
 	}
-	m_pPlayer->Setmatrix(nullptr, &m_MainCamera.m_matView,
+	m_pPlayer->SetMatrix(nullptr, &m_MainCamera.m_matView,
 								&m_MainCamera.m_matOrthoProj);
 	m_pPlayer->Render();
 	
