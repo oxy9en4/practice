@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <codecvt>
 
 #include <map>
 #include <unordered_map>
@@ -60,6 +61,17 @@ extern float g_fMapHalfSizeY;
 extern DWORD g_dwWindowWidth;
 extern DWORD g_dwWindowHeight;
 
+static std::wstring mtw(std::string str)
+{
+	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> conv;
+	return conv.from_bytes(str);
+}
+
+static std::string wtm(std::wstring str)
+{
+	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> conv;
+	return conv.to_bytes(str);
+}
 
 static void DebugString(const WCHAR* msg)
 {

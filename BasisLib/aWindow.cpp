@@ -1,4 +1,7 @@
 #include "aWindow.h"
+#include <Windowsx.h>  // GET_X_LPARAM
+
+
 HWND g_hWnd;
 DWORD g_dwWindowWidth;
 DWORD g_dwWindowHeight;
@@ -9,6 +12,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
+    case WM_RBUTTONDOWN: // 마우스 우클릭 이벤트 추가
+    {
+        int xPos = GET_X_LPARAM(lParam);
+        int yPos = GET_Y_LPARAM(lParam);
+
+        // 여기서 xPos와 yPos는 마우스 우클릭이 발생한 위치입니다.
+        // 이 위치에 대한 처리를 추가하면 됩니다.
+
+        break;
+    }
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }

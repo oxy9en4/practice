@@ -75,15 +75,21 @@
     <ClCompile Include="DxObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="SpriteObj.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundMgr.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ICoreStd.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Input.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="DirectXTex.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="std.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="SWriter.h">
@@ -133,6 +139,18 @@
     </ClInclude>
     <ClInclude Include="DxObject.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="std.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteObj.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundMgr.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ICoreStd.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

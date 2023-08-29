@@ -1,5 +1,7 @@
 #include "Timer.h"
 #include "SWriter.h"
+
+
 float	g_fGameTimer = 0.0f;
 float   g_fSPF = 0.0f;
 

@@ -23,6 +23,7 @@
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="DxObject.cpp" />
+    <ClCompile Include="ICoreStd.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="aMath.cpp" />
     <ClCompile Include="NpcObj.cpp" />
@@ -30,6 +31,8 @@
     <ClCompile Include="PlaneObj.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ShaderMgr.cpp" />
+    <ClCompile Include="SoundMgr.cpp" />
+    <ClCompile Include="SpriteObj.cpp" />
     <ClCompile Include="SWriter.cpp" />
     <ClCompile Include="TextureMgr.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -43,6 +46,7 @@
     <ClInclude Include="Device.h" />
     <ClInclude Include="DirectXTex.h" />
     <ClInclude Include="DxObject.h" />
+    <ClInclude Include="ICoreStd.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="aMath.h" />
     <ClInclude Include="NpcObj.h" />
@@ -50,6 +54,8 @@
     <ClInclude Include="PlaneObj.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ShaderMgr.h" />
+    <ClInclude Include="SoundMgr.h" />
+    <ClInclude Include="SpriteObj.h" />
     <ClInclude Include="std.h" />
     <ClInclude Include="SWriter.h" />
     <ClInclude Include="TextureMgr.h" />
@@ -170,6 +176,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../../FMOD/Inc;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

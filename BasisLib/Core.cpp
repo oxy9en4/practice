@@ -1,4 +1,6 @@
 #include "Core.h"
+#include "ICoreStd.h"
+
 void  Core::CreateBlendState()
 {
     // alpha blending
@@ -35,12 +37,17 @@ bool  Core::EngineInit()
     Device::Init();
     CreateBlendState();
 
+    ICore::g_pDevice = m_pDevice;
+    ICore::g_pContext = m_pImmediateContext;
+
     I_Tex.Set(m_pDevice, m_pImmediateContext);
     I_Shader.Set(m_pDevice, m_pImmediateContext);
 
     m_GameTimer.Init();
     Input::GetInstance().Init();
-    m_MainCamera.Init();
+
+    m_pMainCamera = std::make_shared<Camera>();
+    m_pMainCamera->Init();
 
     I_Writer.Init();
     if (m_pSwapChain)
@@ -62,7 +69,7 @@ bool  Core::EngineFrame()
 {
     m_GameTimer.Frame();
     Input::GetInstance().Frame();
-    m_MainCamera.Frame();
+    m_pMainCamera->Frame();
     Device::Frame();
     I_Writer.Frame();
     Frame();
@@ -75,7 +82,7 @@ bool  Core::EngineRender()
 
     Render();
 
-    m_MainCamera.Render();
+    m_pMainCamera->Render();
     m_GameTimer.Render();
     Input::GetInstance().Render();
 
@@ -90,7 +97,7 @@ bool  Core::EngineRelease()
     if (m_AlphaBlend)m_AlphaBlend->Release();
     m_GameTimer.Release();
     Input::GetInstance().Release();
-    m_MainCamera.Release();
+    m_pMainCamera->Release();
     I_Writer.Release();
     Device::Release();
     return true;

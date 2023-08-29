@@ -1,6 +1,12 @@
 #pragma once
 #include "aMath.h"
 
+struct UVRect
+{
+	Vector2 m_Min;
+	Vector2 m_Max;
+};
+
 struct Rect
 {
 	bool mbEnable = true;
