@@ -29,6 +29,7 @@ struct SpriteInfo
 	{
 		Reset();
 	}
+	
 };
 
 class SpriteObj : public PlaneObj
@@ -41,8 +42,11 @@ public:
 	int		m_iCurrentAnimIndex = 0;
 	int		m_iNumSpriteX = 1;
 	int		m_iNumSpriteY = 1;
+	Vector3 mDir;
+	Vector3 mTarget;
 	SpriteInfo m_InitSpriteInfo;
 public:
+	void  UpdateDir(Vector3 m_TargetPosition);
 	virtual bool   Render() override;
 	virtual int    GetMaxSize() { return 1; }
 	virtual bool  Load(
@@ -74,7 +78,7 @@ class SpriteUV : public SpriteObj
 {
 public:
 	std::vector<UVRect>  m_pUVList;
-	void  SetUVFrame(int iNumRow, int iNumColumn) override;
+	virtual void  SetUVFrame(int iNumRow, int iNumColumn) override;
 	void  SetNumSprite(int x, int y)
 	{
 		m_iNumSpriteX = 1;
@@ -82,10 +86,10 @@ public:
 	}
 public:
 	virtual int    GetMaxSize() { return m_pUVList.size(); }
-	bool Init() override;
-	bool Frame() override;
-	bool Render() override;
-	bool Release() override;
+	virtual bool Init() override;
+	virtual bool Frame() override;
+	virtual bool Render() override;
+	virtual bool Release() override;
 public:
 	SpriteUV();
 	virtual ~SpriteUV();

@@ -46,3 +46,20 @@ bool Input::Release()
 {
 	return true;
 }
+
+
+Vector3 Input::GetWorldPos(Vector2 vWindow, Vector3 vCamera)
+{
+	float fHalfWidth = vWindow.x / 2.0f;
+	float fHalfHeight = vWindow.y / 2.0f;
+
+	// client
+	Vector3 vMouse = { (float)m_MousePos.x, (float)m_MousePos.y , 0.0f };
+	// world
+	Vector2 vMouseWorldLT = { vCamera.x - fHalfWidth,
+							   vCamera.y + fHalfHeight };
+	vMouse.x = vMouseWorldLT.x + vMouse.x;
+	vMouse.y = vMouseWorldLT.y - vMouse.y;
+	return vMouse;
+}
+

@@ -42,6 +42,7 @@ bool PlaneObj::CreateVertexBuffer()
 
 bool PlaneObj::Frame()
 {
+
     UpdateMatrix();
     return true;
 }

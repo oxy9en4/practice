@@ -10,6 +10,7 @@ enum KeyState
 };
 
 
+
 class Input
 {
 public:
@@ -25,6 +26,11 @@ public:
 	bool Frame();
 	bool Render();
 	bool Release();
+	Vector3 GetWorldPos(Vector2 vWindow, Vector3 vCamera);
+	bool GetMouse()
+	{
+		return (GetAsyncKeyState(VK_RBUTTON) & 0x8000) != 0;
+	}
 private:
 	Input() {  };
 public:

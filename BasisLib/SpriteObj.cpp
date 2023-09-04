@@ -19,6 +19,19 @@ bool  SpriteObj::Load(
 	SetUVFrame(info.iNumRow, info.iNumColumn);
 	return Create(info.texFile, info.shaderFile);
 }
+void SpriteObj::UpdateDir(Vector3 m_TargetPosition)
+{
+	// 현재 위치와 목표 위치 간의 거리를 계산합니다.
+	
+	mDir = m_TargetPosition - m_vPos;
+	// 회전 각도를 계산합니다.
+	Vector3 forwardVector = Vector3(1.0f, 0.0f, 0.0f); // 현재 앞 방향
+	float angle = forwardVector.Angle(mDir);
+	angle = DegreeToRadian(angle);
+	m_vRotation.z = angle;
+
+		
+}
 bool SpriteObj::Render()
 {
 	PreRender();
@@ -46,6 +59,7 @@ bool SpriteTexture::Init()
 }
 bool SpriteTexture::Frame()
 {
+
 	PlaneObj::Frame();
 	m_fElapsedTimer += g_fSPF;
 	if (m_pTexList[m_iCurrentAnimIndex] != nullptr)
@@ -60,6 +74,7 @@ bool SpriteTexture::Frame()
 			m_fElapsedTimer -= m_fOffsetTime;
 		}
 	}
+
 	return true;
 }
 bool SpriteTexture::Render()
@@ -89,7 +104,7 @@ void SpriteUV::SetUVFrame(int iNumRow, int iNumColumn)
 	UVRect tRt;
 	Vector2 uv;
 
-	// 4x4
+	// 16x9
 	float fOffsetX = 1.0f / iNumColumn;
 	float fOffsetY = 1.0f / iNumRow;
 	for (int row = 0; row < iNumRow; row++)
@@ -113,7 +128,23 @@ bool SpriteUV::Init()
 }
 bool SpriteUV::Frame()
 {
+	// 현재 위치를 목표 위치로 이동하는 코드를 추가합니다.
+	float moveSpeed = 200.0f; // 초당 이동 속도 (픽셀/초)
+	float maxMoveDistanceThisFrame = moveSpeed * g_fSPF;
+
+	if ((mTarget - m_vPos).Length() > 1.0f)
+	{
+		// 목표 위치까지 최대 이동 거리만큼 이동합니다.
+		Vector3 moveDirection = mDir.NormVector();
+		m_vPos += moveDirection * maxMoveDistanceThisFrame;
+	}
+	else
+	{
+		// 목표 위치에 도착한 경우, 위치를 목표 위치로 설정합니다.
+		m_vPos = mTarget;
+	}
 	PlaneObj::Frame();
+
 	m_fElapsedTimer += g_fSPF;
 	if (m_fElapsedTimer >= m_fOffsetTime)
 	{

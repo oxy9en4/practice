@@ -126,10 +126,19 @@ Vector3 Vector3::operator*(Matrix const& m)
 float Vector3::Angle(Vector3& p) {
 	Vector3 a = NormVector();
 	Vector3 b = p.NormVector();
-	float fCosAngle = a | b;
-	float fRadian = acos(fCosAngle);
-	float fDegree = RadianToDegree(fRadian);
-	return fDegree;
+	float fDot = a | b;
+	if (fDot > 1.0f) fDot = 1.0f;
+	float fRadian = acos(fDot);
+	float fAngle = RadianToDegree(fRadian);
+
+	// 벡터의 외적을 사용하여 회전 방향을 결정
+	Vector3 crossProduct = a ^ b;
+	if (crossProduct.z < 0.0f) {
+		// 시계 방향 회전
+		fAngle = 360.0f - fAngle;
+	}
+
+	return fAngle;
 }
 
 float Vector3::Length() {
