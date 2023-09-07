@@ -146,11 +146,13 @@
   <ItemGroup>
     <ClInclude Include="bullet.h" />
     <ClInclude Include="mainchar.h" />
+    <ClInclude Include="npc.h" />
     <ClInclude Include="Sample.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="mainchar.cpp" />
+    <ClCompile Include="npc.cpp" />
     <ClCompile Include="Sample.cpp" />
   </ItemGroup>
   <ItemGroup>

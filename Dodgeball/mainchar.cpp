@@ -1,5 +1,11 @@
 #include "mainchar.h"
 
+bool mainchar::Init()
+{
+	Bullet = std::make_unique<bullet>();
+	return true;
+}
+
 
 void mainchar::SetUVFrame(int iNumRow, int iNumColumn)
 {
@@ -9,34 +15,53 @@ void mainchar::SetUVFrame(int iNumRow, int iNumColumn)
 	// 16x9
 	float fOffsetX = 1.0f / iNumColumn;
 	float fOffsetY = 1.0f / iNumRow;
-	for (int row = 0; row < iNumRow; row++)
+	if (iNumRow == 9)
 	{
+		for (int row = 0; row < iNumRow; row++)
+		{
+			uv.y = fOffsetY * row;
+			for (int column = 0; column < iNumColumn; column++)
+			{
+				uv.x = fOffsetX * column;
+				tRt.m_Min = uv;
+				tRt.m_Max.x = uv.x + fOffsetX;
+				tRt.m_Max.y = uv.y + fOffsetY;
+				m_pUVList.push_back(tRt);
+				if (row == 0)
+				{
+					if (column < 4)
+						m_AttackList.push_back(tRt);
+				}
+				if (row == 8)
+				{
+					if (column < 1)
+						m_IdleList.push_back(tRt);
+				}
+				if (row == 7)
+				{
+					if (column < 10 && column > 1)
+						m_DodgeList.push_back(tRt);
+				}
+			}
+		}
+		m_fOffsetTime = m_fAnimTimer / m_pUVList.size();
+	}
+	if (iNumRow == 7)
+	{
+		int row = 4;
 		uv.y = fOffsetY * row;
-		for (int column = 0; column < iNumColumn; column++)
+		for (int column = 2; column < iNumColumn; column++)
 		{
 			uv.x = fOffsetX * column;
 			tRt.m_Min = uv;
 			tRt.m_Max.x = uv.x + fOffsetX;
 			tRt.m_Max.y = uv.y + fOffsetY;
 			m_pUVList.push_back(tRt);
-			if (row == 0)
-			{
-				if(column < 4)
-					m_AttackList.push_back(tRt);
-			}
-			if (row == 8)
-			{
-				if (column < 1)
-					m_IdleList.push_back(tRt);
-			}
-			if (row == 7)
-			{
-				if (column < 7 && column > 1)
-					m_DodgeList.push_back(tRt);
-			}
+			m_DeathList.push_back(tRt);
+
 		}
+		m_fOffsetTime = m_fAnimTimer / m_pUVList.size();
 	}
-	m_fOffsetTime = m_fAnimTimer / m_pUVList.size();
 }
 
 
@@ -45,11 +70,11 @@ bool mainchar::Frame()
 	// 현재 위치를 목표 위치로 이동하는 코드를 추가합니다.
 	float moveSpeed = 150.0f; // 초당 이동 속도 (픽셀/초)
 	float maxMoveDistanceThisFrame = moveSpeed * g_fSPF;
-	if (m_State == 2) maxMoveDistanceThisFrame *= 1.5;
+	if (m_State == CHAR_DODGE) maxMoveDistanceThisFrame *= 1.5;
 	if ((mTarget - m_vPos).Length() > 1.0f)
 	{
 		// 목표 위치까지 최대 이동 거리만큼 이동합니다.
-		Vector3 moveDirection = mDir.NormVector();
+		Vector3 moveDirection = (mTarget - m_vPos).NormVector();
 		m_vPos += moveDirection * maxMoveDistanceThisFrame;
 	}
 	else
@@ -60,17 +85,17 @@ bool mainchar::Frame()
 	
 	PlaneObj::Frame();
 	m_fElapsedTimer += g_fSPF;
-	if (m_fElapsedTimer >= m_fOffsetTime && m_State < 3)
+	if (m_fElapsedTimer >= m_fOffsetTime && m_State < CHAR_CANCLE) // cancle 상태가 아니라면 index 증가
 	{
 		m_iCurrentAnimIndex++;
 		m_fElapsedTimer -= m_fOffsetTime;
 	}
-	else if (m_fElapsedTimer >= m_fOffsetTime && m_State == 3)
+	else if (m_fElapsedTimer >= m_fOffsetTime && m_State == CHAR_CANCLE) // cancle 상태라면 역재생
 	{
 		m_iCurrentAnimIndex--;
 		m_fElapsedTimer -= m_fOffsetTime;
 	}
-	
+	if (Bullet->visible) Bullet->Frame();
 	return true;
 }
 bool mainchar::Render()
@@ -88,8 +113,11 @@ bool mainchar::Render()
 	case CHAR_ATTACK:
 		if (m_iCurrentAnimIndex >= m_AttackList.size())
 		{
-			m_iCurrentAnimIndex = 0;
-			m_State = 0;
+			m_iCurrentAnimIndex = m_AttackList.size() - 1;
+			m_State = CHAR_CANCLE;
+
+			Bullet->m_iCurrentAnimIndex = 0;
+			Bullet->visible = true;
 		}
 		uv = m_AttackList[m_iCurrentAnimIndex];
 		break;
@@ -97,14 +125,14 @@ bool mainchar::Render()
 		if (m_iCurrentAnimIndex >= m_DodgeList.size())
 		{
 			m_iCurrentAnimIndex = 0;
-			m_State = 0;
+			m_State = CHAR_IDLE;
 		}
 		uv = m_DodgeList[m_iCurrentAnimIndex];
 		break;
 	case CHAR_CANCLE:
 		if (m_iCurrentAnimIndex == 0)
 		{
-			m_State = 0;
+			m_State = CHAR_IDLE;
 		}
 		uv = m_AttackList[m_iCurrentAnimIndex];
 		break;
@@ -125,5 +153,7 @@ bool mainchar::Render()
 
 	PreRender();
 	PostRender();
+
+	Bullet->Render();
 	return true;
 }

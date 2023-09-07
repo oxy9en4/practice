@@ -1,7 +1,7 @@
 #pragma once
 #include "Core.h"
-#include "mainchar.h"
-#include "bullet.h"
+#include "npc.h"
+
 
 
 
@@ -13,10 +13,13 @@ class Sample : public Core
 
 	using sPlaneObj = std::unique_ptr<PlaneObj>;
 	using sMainchar = std::unique_ptr<mainchar>;
-	using sBullet = std::unique_ptr<bullet>;
+	using sNpc = std::unique_ptr<npc>;
+
 	sPlaneObj  m_pMapObj = nullptr;
 	sMainchar Player = nullptr;
-	sBullet   Bullet = nullptr;
+	sMainchar PlayerDeath = nullptr;
+	sNpc Npc = nullptr;
+
 
 	std::map<int, SpriteObj*>	m_SpriteList;
 	int   m_iSpriteIndex = 0;
