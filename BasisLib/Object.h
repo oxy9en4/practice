@@ -17,6 +17,7 @@ public:
 	Matrix			m_matProj;
 	Rect			m_RT;
 	virtual void SetRect(Vector2& c, float w, float h);
+	virtual void SetRect(float x, float y, float w, float h);
 public:
 	void SetPos(Vector3 p);
 	void SetScale(Vector3 s);

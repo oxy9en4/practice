@@ -31,6 +31,7 @@ void bullet::SetUVFrame(int iNumRow, int iNumColumn)
 
 bool bullet::Frame()
 {
+
 	// 현재 위치를 목표 위치로 이동하는 코드를 추가합니다.
 	float moveSpeed = 400.0f; // 초당 이동 속도 (픽셀/초)
 	float maxMoveDistanceThisFrame = moveSpeed * g_fSPF;
@@ -52,6 +53,8 @@ bool bullet::Frame()
 		lifeTime = 0.0f;
 		visible = false;
 		m_iCurrentAnimIndex = 0;
+		Vector2 tmp = {3000, 3000};
+		SetRect(tmp, m_RT.m_fWidth, m_RT.m_fHeight);
 	}
 
 	return true;

@@ -6,6 +6,7 @@ using sBullet = std::unique_ptr<bullet>;
 
 enum CharState
 {
+	CHAR_DEATH = -1,
 	CHAR_IDLE = 0,
 	CHAR_ATTACK = 1,
 	CHAR_DODGE = 2,
@@ -17,7 +18,7 @@ enum CharState
 class mainchar : public SpriteUV
 {
 public:
-	UINT m_State = 0;
+	int m_State = 0;
 	std::vector<UVRect>	m_IdleList;
 	std::vector<UVRect>	m_AttackList;
 	std::vector<UVRect>	m_DodgeList;

@@ -44,5 +44,7 @@ bool PlaneObj::Frame()
 {
 
     UpdateMatrix();
+    Vector2 tmp = { m_vPos.x, m_vPos.y };
+    SetRect(tmp, m_RT.m_fWidth, m_RT.m_fHeight);
     return true;
 }

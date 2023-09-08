@@ -3,6 +3,9 @@
 void Object::SetRect(Vector2& c, float w, float h) {
 	m_RT.Set(c, w, h);
 }
+void Object::SetRect(float x, float y, float w, float h) {
+	m_RT.Set(x, y, w, h);
+}
 
 void Object::SetPos(Vector3 p) {
 	m_vPos = p;

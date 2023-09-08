@@ -50,7 +50,7 @@ void mainchar::SetUVFrame(int iNumRow, int iNumColumn)
 	{
 		int row = 4;
 		uv.y = fOffsetY * row;
-		for (int column = 2; column < iNumColumn; column++)
+		for (int column = 3; column < iNumColumn; column++)
 		{
 			uv.x = fOffsetX * column;
 			tRt.m_Min = uv;
@@ -82,7 +82,6 @@ bool mainchar::Frame()
 		// 목표 위치에 도착한 경우, 위치를 목표 위치로 설정합니다.
 		m_vPos = mTarget;
 	}
-	
 	PlaneObj::Frame();
 	m_fElapsedTimer += g_fSPF;
 	if (m_fElapsedTimer >= m_fOffsetTime && m_State < CHAR_CANCLE) // cancle 상태가 아니라면 index 증가
@@ -103,6 +102,10 @@ bool mainchar::Render()
 	UVRect uv;
 	switch (m_State)
 	{
+	case CHAR_DEATH:
+		if (m_iCurrentAnimIndex > m_DeathList.size() - 1) m_iCurrentAnimIndex--;
+		uv = m_DeathList[m_iCurrentAnimIndex];
+		break;
 	case CHAR_IDLE:
 		if (m_iCurrentAnimIndex >= m_IdleList.size())
 		{
@@ -154,6 +157,6 @@ bool mainchar::Render()
 	PreRender();
 	PostRender();
 
-	Bullet->Render();
+	if (Bullet->visible) Bullet->Render();
 	return true;
 }

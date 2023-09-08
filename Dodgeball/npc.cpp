@@ -7,9 +7,9 @@ npc::npc() {
     srand(static_cast<unsigned int>(time(nullptr)));
 
     // npc ÃÊ±â ¼³Á¤
-    moveProbability = 0.1f;     // ÀÌµ¿ È®·ü
-    dodgeProbability = 0.1f;    // È¸ÇÇ È®·ü
-    attackProbability = 0.5f;   // °ø°İ È®·ü
+    moveProbability = 0.2f;     // ÀÌµ¿ È®·ü
+    dodgeProbability = 0.3f;    // È¸ÇÇ È®·ü
+    attackProbability = 0.3f;   // °ø°İ È®·ü
     isMoving = false;
     isDodging = false;
     isAttacking = false;
@@ -23,8 +23,8 @@ bool npc::Init() {
 }
 
 bool npc::Frame() {
-
-    if (!isMoving && !isDodging && !isAttacking) {
+    if (m_State == -1) return false;
+    if (m_State == 0) {
         DecideAction();
     }
 
@@ -144,7 +144,7 @@ bool npc::Render() {
     PreRender();
     PostRender();
 
-    Bullet->Render();
+    if (Bullet->visible) Bullet->Render();
     return true;
 }
 

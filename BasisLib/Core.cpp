@@ -72,6 +72,7 @@ bool  Core::EngineFrame()
     m_pMainCamera->Frame();
     Device::Frame();
     I_Writer.Frame();
+    I_Sound.Frame();
     Frame();
     return true;
 }

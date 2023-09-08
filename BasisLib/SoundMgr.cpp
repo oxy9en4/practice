@@ -20,14 +20,14 @@ bool  Sound::Frame()
 	unsigned int total = 0;
 	m_pChannel->getPosition(&ms, FMOD_TIMEUNIT_MS);
 	m_pSound->getLength(&total, FMOD_TIMEUNIT_MS);
-	_stprintf_s(m_szBuffer, _T(" 경과시간[%02d:%02d:%02d], 파일크기[%02d:%02d:%02d]"),
+	/*_stprintf_s(m_szBuffer, _T(" 경과시간[%02d:%02d:%02d], 파일크기[%02d:%02d:%02d]"),
 		ms / 1000 / 60,
 		ms / 1000 % 60,
 		ms / 10 % 60,
 		total / 1000 / 60,
 		total / 1000 % 60,
-		total / 10 % 60);
-	SWriter::GetInstance().AddText(m_szBuffer, 0, 100);
+		total / 10 % 60);*/
+	//SWriter::GetInstance().AddText(m_szBuffer, 0, 100);
 	return true;
 }
 bool  Sound::Release()
@@ -83,7 +83,7 @@ void  Sound::VolumeDown()
 {
 	float fVolume;
 	m_pChannel->getVolume(&fVolume);
-	fVolume -= 0.33f * g_fSPF;
+	fVolume = 0.33f;
 	fVolume = max(0.0f, fVolume);
 	m_pChannel->setVolume(fVolume);
 }

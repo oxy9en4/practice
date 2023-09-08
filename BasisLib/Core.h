@@ -6,6 +6,7 @@
 #include "TextureMgr.h"
 #include "Device.h"
 #include "SWriter.h"
+#include "SoundMgr.h"
 
 class Core : public Device
 {
