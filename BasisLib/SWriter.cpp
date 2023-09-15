@@ -2,7 +2,7 @@
 #include "std.h"
 bool SWriter::CreateDXWriteRT(IDXGISurface1* pSurface)
 {
-	FLOAT xDpi, yDpi;
+	//FLOAT xDpi, yDpi;
 	//error C4996: 'ID2D1Factory::GetDesktopDpi': Deprecated. Use DisplayInformation::LogicalDpi for Windows Store Apps or GetDpiForWindow for desktop apps.
 	//m_pD2DFactory->GetDesktopDpi(&xDpi, &yDpi);
 	float dpi = GetDpiForWindow(g_hWnd);
@@ -123,6 +123,12 @@ bool SWriter::Release()
 	if (m_pRT)m_pRT->Release();
 	if (m_pDWriteFactory)m_pDWriteFactory->Release();
 	if (m_pD2DFactory)m_pD2DFactory->Release();
+
+	m_pDefaultBrush = nullptr;
+	m_pDefaultTextFormat = nullptr;
+	m_pRT = nullptr;
+	m_pDWriteFactory = nullptr;
+	m_pD2DFactory = nullptr;
 	return true;
 }
 

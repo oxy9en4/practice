@@ -165,7 +165,7 @@ namespace DirectX
         size_t          width;
         size_t          height;     // Should be 1 for 1D textures
         size_t          depth;      // Should be 1 for 1D or 2D textures
-        size_t          arraySize;  // For cubemap, this is a multiple of 6
+        size_t          arraySize;  // For cubeMap, this is a multiple of 6
         size_t          mipLevels;
         uint32_t        miscFlags;
         uint32_t        miscFlags2;
@@ -175,7 +175,7 @@ namespace DirectX
         size_t __cdecl ComputeIndex(_In_ size_t mip, _In_ size_t item, _In_ size_t slice) const noexcept;
             // Returns size_t(-1) to indicate an out-of-range error
 
-        bool __cdecl IsCubemap() const noexcept { return (miscFlags & TEX_MISC_TEXTURECUBE) != 0; }
+        bool __cdecl IsCubeMap() const noexcept { return (miscFlags & TEX_MISC_TEXTURECUBE) != 0; }
             // Helper for miscFlags
 
         bool __cdecl IsPMAlpha() const noexcept { return ((miscFlags2 & TEX_MISC2_ALPHA_MODE_MASK) == TEX_ALPHA_MODE_PREMULTIPLIED) != 0; }
@@ -183,7 +183,7 @@ namespace DirectX
         TEX_ALPHA_MODE __cdecl GetAlphaMode() const noexcept { return static_cast<TEX_ALPHA_MODE>(miscFlags2 & TEX_MISC2_ALPHA_MODE_MASK); }
             // Helpers for miscFlags2
 
-        bool __cdecl IsVolumemap() const noexcept { return (dimension == TEX_DIMENSION_TEXTURE3D); }
+        bool __cdecl IsVolumeMap() const noexcept { return (dimension == TEX_DIMENSION_TEXTURE3D); }
             // Helper for dimension
     };
 
@@ -368,7 +368,7 @@ namespace DirectX
         _Out_ TexMetadata& metadata) noexcept;
 
     //---------------------------------------------------------------------------------
-    // Bitmap image container
+    // BitMap image container
     struct Image
     {
         size_t      width;
@@ -573,7 +573,7 @@ namespace DirectX
     HRESULT __cdecl SaveToTGAFile(_In_ const Image& image, _In_z_ const wchar_t* szFile, _In_opt_ const TexMetadata* metadata = nullptr) noexcept;
 
     //---------------------------------------------------------------------------------
-    // Texture conversion, resizing, mipmap generation, and block compression
+    // Texture conversion, resizing, mipMap generation, and block compression
 
     enum TEX_FR_FLAGS : unsigned long
     {
@@ -629,7 +629,7 @@ namespace DirectX
         TEX_FILTER_LINEAR = 0x200000,
         TEX_FILTER_CUBIC = 0x300000,
         TEX_FILTER_BOX = 0x400000,
-        TEX_FILTER_FANT = 0x400000, // Equiv to Box filtering for mipmap generation
+        TEX_FILTER_FANT = 0x400000, // Equiv to Box filtering for mipMap generation
         TEX_FILTER_TRIANGLE = 0x500000,
         // Filtering mode to use for any required image resizing
 
@@ -780,38 +780,38 @@ namespace DirectX
         _In_ DXGI_FORMAT format, _Out_ ScratchImage& images) noexcept;
 
     //---------------------------------------------------------------------------------
-    // Normal map operations
+    // Normal Map operations
 
-    enum CNMAP_FLAGS : unsigned long
+    enum CNMap_FLAGS : unsigned long
     {
-        CNMAP_DEFAULT = 0,
+        CNMap_DEFAULT = 0,
 
-        CNMAP_CHANNEL_RED = 0x1,
-        CNMAP_CHANNEL_GREEN = 0x2,
-        CNMAP_CHANNEL_BLUE = 0x3,
-        CNMAP_CHANNEL_ALPHA = 0x4,
-        CNMAP_CHANNEL_LUMINANCE = 0x5,
+        CNMap_CHANNEL_RED = 0x1,
+        CNMap_CHANNEL_GREEN = 0x2,
+        CNMap_CHANNEL_BLUE = 0x3,
+        CNMap_CHANNEL_ALPHA = 0x4,
+        CNMap_CHANNEL_LUMINANCE = 0x5,
         // Channel selection when evaluting color value for height
         // Luminance is a combination of red, green, and blue
 
-        CNMAP_MIRROR_U = 0x1000,
-        CNMAP_MIRROR_V = 0x2000,
-        CNMAP_MIRROR = 0x3000,
+        CNMap_MIRROR_U = 0x1000,
+        CNMap_MIRROR_V = 0x2000,
+        CNMap_MIRROR = 0x3000,
         // Use mirror semantics for scanline references (defaults to wrap)
 
-        CNMAP_INVERT_SIGN = 0x4000,
+        CNMap_INVERT_SIGN = 0x4000,
         // Inverts normal sign
 
-        CNMAP_COMPUTE_OCCLUSION = 0x8000,
+        CNMap_COMPUTE_OCCLUSION = 0x8000,
         // Computes a crude occlusion term stored in the alpha channel
     };
 
     HRESULT __cdecl ComputeNormalMap(
-        _In_ const Image& srcImage, _In_ CNMAP_FLAGS flags, _In_ float amplitude,
+        _In_ const Image& srcImage, _In_ CNMap_FLAGS flags, _In_ float amplitude,
         _In_ DXGI_FORMAT format, _Out_ ScratchImage& normalMap) noexcept;
     HRESULT __cdecl ComputeNormalMap(
         _In_reads_(nimages) const Image* srcImages, _In_ size_t nimages, _In_ const TexMetadata& metadata,
-        _In_ CNMAP_FLAGS flags, _In_ float amplitude, _In_ DXGI_FORMAT format, _Out_ ScratchImage& normalMaps) noexcept;
+        _In_ CNMap_FLAGS flags, _In_ float amplitude, _In_ DXGI_FORMAT format, _Out_ ScratchImage& normalMaps) noexcept;
 
     //---------------------------------------------------------------------------------
     // Misc image operations
@@ -875,7 +875,7 @@ namespace DirectX
 #ifdef _WIN32
     enum WICCodecs
     {
-        WIC_CODEC_BMP = 1,          // Windows Bitmap (.bmp)
+        WIC_CODEC_BMP = 1,          // Windows BitMap (.bmp)
         WIC_CODEC_JPEG,             // Joint Photographic Experts Group (.jpg, .jpeg)
         WIC_CODEC_PNG,              // Portable Network Graphics (.png)
         WIC_CODEC_TIFF,             // Tagged Image File Format  (.tif, .tiff)

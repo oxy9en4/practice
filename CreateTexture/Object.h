@@ -17,7 +17,12 @@ public:
 	ID3D11VertexShader*		m_pVS = nullptr;
 	ID3D11PixelShader*		m_pPS = nullptr;
 	ID3D11ShaderResourceView* m_pTexSRV = nullptr;
+public:
 
+	Matrix         matScale, matRotation, matTranslate;
+	Matrix         m_matWorld;
+	Matrix         m_matView;
+	Matrix         m_matProj;
 	std::vector<P_Vertex>	m_VertexList;
 
 public:
@@ -27,6 +32,8 @@ public:
 	bool LoadPixelShader();
 	bool CreateInputLayout();
 	bool LoadTextureFile(std::wstring filename);
+
+	virtual void  SetMatrix(Matrix* matWorld, Matrix* matView, Matrix* matProj);
 
 public:
 	bool Create(std::wstring texFilename);

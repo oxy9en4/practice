@@ -8,6 +8,12 @@ class Object : public DxObject
 {
 public:
 	bool			m_bDead = false;
+	int             m_iCollisionID = -1;
+	int             m_iSelectID = -1;
+	virtual void    MouseOverlap(Vector2 pt, DWORD state)
+	{
+		int k = 0;
+	}
 public:
 	Vector3			m_vPos;
 	Vector3			m_vScale;
@@ -16,6 +22,8 @@ public:
 	Matrix			m_matView;
 	Matrix			m_matProj;
 	Rect			m_RT;
+	W_STR           m_szName;
+	void            SetName(W_STR name) { m_szName = name; }
 	virtual void SetRect(Vector2& c, float w, float h);
 	virtual void SetRect(float x, float y, float w, float h);
 public:

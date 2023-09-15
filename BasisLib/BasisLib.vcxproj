@@ -26,6 +26,7 @@
     <ClCompile Include="ICoreStd.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="aMath.cpp" />
+    <ClCompile Include="SMap.cpp" />
     <ClCompile Include="NpcObj.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PlaneObj.cpp" />
@@ -49,6 +50,7 @@
     <ClInclude Include="ICoreStd.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="aMath.h" />
+    <ClInclude Include="SMap.h" />
     <ClInclude Include="NpcObj.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PlaneObj.h" />
@@ -64,6 +66,9 @@
     <ClInclude Include="aWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="DefaultObj.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
     <FxCompile Include="Plane.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </FxCompile>

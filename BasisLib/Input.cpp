@@ -32,13 +32,13 @@ bool Input::Frame()
 
 bool Input::Render()
 {
-#ifdef _DEBUG
-	std::wstring mousPos = std::to_wstring(m_MousePos.x);
-	mousPos += L", ";
-	mousPos += std::to_wstring(m_MousePos.y);
-	mousPos += L"\n";
-	DebugString(mousPos.c_str());
-#endif
+//#ifdef _DEBUG
+//	std::wstring mousPos = std::to_wstring(m_MousePos.x);
+//	mousPos += L", ";
+//	mousPos += std::to_wstring(m_MousePos.y);
+//	mousPos += L"\n";
+//	DebugString(mousPos.c_str());
+//#endif
 	return true;
 }
 
@@ -60,6 +60,21 @@ Vector3 Input::GetWorldPos(Vector2 vWindow, Vector3 vCamera)
 							   vCamera.y + fHalfHeight };
 	vMouse.x = vMouseWorldLT.x + vMouse.x;
 	vMouse.y = vMouseWorldLT.y - vMouse.y;
+	return vMouse;
+}
+
+Vector2 Input::GetWorldPosVec2(Vector2 vWindow, Vector3 vCamera)
+{
+	float fHalfWidth = vWindow.x / 2.0f;
+	float fHalfHeight = vWindow.y / 2.0f;
+
+	// client
+	Vector2 vMouse = { (float)m_MousePos.x, (float)m_MousePos.y };
+	// world
+	Vector2 vMouseWorldLT = { vCamera.x - fHalfWidth,
+							   vCamera.y + fHalfHeight };
+	vMouse.x = vMouseWorldLT.x + (vMouse.x);
+	vMouse.y = vMouseWorldLT.y - (vMouse.y);
 	return vMouse;
 }
 

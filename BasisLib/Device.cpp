@@ -1,10 +1,27 @@
 #include "Device.h"
+bool Device::DisableBackfaceCulling(D3D11_FILL_MODE _fillMode)
+{
+    if (m_rsState != nullptr) m_rsState->Release();
+
+    D3D11_RASTERIZER_DESC rDesc;
+    ZeroMemory(&rDesc, sizeof(rDesc));
+    rDesc.FillMode = _fillMode;
+    rDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+    HRESULT hr = m_pDevice->CreateRasterizerState(&rDesc, &m_rsState);
+
+    if (SUCCEEDED(hr))
+    {
+        m_pImmediateContext->RSSetState(m_rsState);
+        return true;
+    }
+    return false;
+}
 bool  Device::Init()
 {
     DXGI_SWAP_CHAIN_DESC SwapChainDesc;
     ZeroMemory(&SwapChainDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
-    SwapChainDesc.BufferDesc.Width = 800;
-    SwapChainDesc.BufferDesc.Height = 600;
+    SwapChainDesc.BufferDesc.Width = g_dwWindowWidth;
+    SwapChainDesc.BufferDesc.Height = g_dwWindowHeight;
     SwapChainDesc.BufferDesc.RefreshRate.Numerator = 60;
     SwapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
     SwapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -13,9 +30,13 @@ bool  Device::Init()
     SwapChainDesc.BufferCount = 1;
     SwapChainDesc.OutputWindow = m_hWnd;
     SwapChainDesc.Windowed = true;
+    SwapChainDesc.Flags = DXGI_SWAP_CHAIN_FLAG::DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
     D3D_DRIVER_TYPE DriverType = D3D_DRIVER_TYPE_HARDWARE;
     UINT Flags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
+#ifdef _DEBUG
+    Flags |= D3D11_CREATE_DEVICE_DEBUG;
+#endif
     D3D_FEATURE_LEVEL pFeatureLevels = D3D_FEATURE_LEVEL_11_0;
     // 1) 디바이스
     HRESULT hr = D3D11CreateDeviceAndSwapChain(
@@ -52,13 +73,16 @@ bool  Device::Init()
     pBackBuffer->Release();
 
 
-    m_ViewPort.Width = 800;
-    m_ViewPort.Height = 600;
+    m_ViewPort.Width = SwapChainDesc.BufferDesc.Width;
+    m_ViewPort.Height = SwapChainDesc.BufferDesc.Height;
     m_ViewPort.MinDepth = 0.0f;
     m_ViewPort.MaxDepth = 1.0f;
     m_ViewPort.TopLeftX = 0;
     m_ViewPort.TopLeftY = 0;
     m_pImmediateContext->RSSetViewports(1, &m_ViewPort);
+
+    m_rsFillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+    DisableBackfaceCulling(m_rsFillMode);
     return true;
 }
 bool  Device::Frame()
@@ -73,6 +97,8 @@ bool  Device::PreRender()
 }
 bool  Device::PostRender()
 {
+    DisableBackfaceCulling(m_rsFillMode);
+
     HRESULT hr = m_pSwapChain->Present(0, 0);
     if (FAILED(hr))
     {
@@ -91,5 +117,7 @@ bool  Device::Release()
     if (m_pSwapChain)m_pSwapChain->Release();
     if (m_pDevice)m_pDevice->Release();
     if (m_pImmediateContext)m_pImmediateContext->Release();
+    if (m_pRenderTargetView) m_pRenderTargetView->Release();
+    if (m_rsState) m_rsState->Release();
     return true;
 }

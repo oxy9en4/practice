@@ -8,8 +8,8 @@
 #include <memory>
 #include <codecvt>
 
-#include <map>
-#include <unordered_map>
+#include <Map>
+#include <unordered_Map>
 #include <assert.h>
 #include <queue>
 
@@ -19,6 +19,8 @@
 #include "DirectXTex.h"
 #include "Utils.h"
 
+#include <wrl.h>
+
 #pragma comment (lib, "d3d11.lib") // 
 #pragma comment (lib, "dxgi.lib") // 
 #pragma comment (lib, "d3dcompiler.lib") // 
@@ -26,7 +28,7 @@
 #pragma comment (lib, "winmm.lib") // used for timeGetTime()
 //#pragma comment (lib, "BasisLib.lib")
 
-
+using namespace Microsoft::WRL;
 
 // Define a macro to start the game loop
 #define GAME_START int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow) { Sample win;

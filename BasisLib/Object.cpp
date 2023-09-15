@@ -17,7 +17,10 @@ void Object::SetScale(Vector3 s) {
 bool Object::Create(std::wstring texFilename,
 					std::wstring shaderFilename) {
 	CreateConstantBuffer();
+	CreateVertexData(); // after Map.cpp
+	CreateIndexData();	// after Map.cpp
 	CreateVertexBuffer();
+
 	m_pShader = I_Shader.Load(shaderFilename);
 	CreateInputLayout();
 	m_pTex = I_Tex.Load(texFilename);

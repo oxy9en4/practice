@@ -272,6 +272,7 @@ bool Sample::Render()
 
 		else
 		{
+			
 			PlayerDeath->Frame();
 			PlayerDeath->m_vPos = npcList[i]->m_vPos;
 			PlayerDeath->SetMatrix(nullptr, &m_pMainCamera->m_matView, &m_pMainCamera->m_matOrthoProj);

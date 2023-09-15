@@ -10,28 +10,9 @@ void DxObject::Set(ID3D11Device* pDevice, ID3D11DeviceContext* pImmediateContext
 
 bool DxObject::CreateVertexBuffer()
 {
-	/*m_VertexList.resize(6);
-	m_VertexList[0].u = 0.0f; m_VertexList[0].v = 0.0f;
-	m_VertexList[1].u = 1.0f; m_VertexList[1].v = 0.0f;
-	m_VertexList[2].u = 0.0f; m_VertexList[2].v = 1.0f;
-	m_VertexList[3].u = 0.0f; m_VertexList[3].v = 1.0f;
-	m_VertexList[4].u = 1.0f; m_VertexList[4].v = 0.0f;
-	m_VertexList[5].u = 1.0f; m_VertexList[5].v = 1.0f;
-
-	float x = randstep(-1.0f, +1.0f);
-	float y = randstep(-1.0f, +1.0f);
-
-	m_VertexList[0].x = x; m_VertexList[0].y = y; m_VertexList[0].z = 0.5f;
-	m_VertexList[1].x = x + 0.3f; m_VertexList[1].y = y; m_VertexList[1].z = 0.5f;
-	m_VertexList[2].x = x; m_VertexList[2].y = y - 0.3f; m_VertexList[2].z = 0.5f;
-	m_VertexList[3].x = x; m_VertexList[3].y = y - 0.3f; m_VertexList[3].z = 0.5f;
-	m_VertexList[4].x = x + 0.3f; m_VertexList[4].y = y; m_VertexList[4].z = 0.5f;
-	m_VertexList[5].x = x + 0.3f; m_VertexList[5].y = y - 0.3f; m_VertexList[5].z = 0.5f;
-
-
 	D3D11_BUFFER_DESC Desc;
 	ZeroMemory(&Desc, sizeof(Desc));
-	Desc.ByteWidth = sizeof(P_Vertex) * m_VertexList.size();
+	Desc.ByteWidth = sizeof(PT_Vertex) * m_VertexList.size();
 	Desc.Usage = D3D11_USAGE_DEFAULT;
 	Desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
@@ -43,7 +24,33 @@ bool DxObject::CreateVertexBuffer()
 		&Desc,
 		&InitialData,
 		&m_pVertexBuffer);
-	if (FAILED(hr)) return false;*/
+	if (FAILED(hr))
+	{
+		return false;
+	}
+	return true;
+}
+
+bool DxObject::CreateIndexBuffer()
+{
+	D3D11_BUFFER_DESC Desc;
+	ZeroMemory(&Desc, sizeof(Desc));
+	Desc.ByteWidth = sizeof(DWORD) * m_IndexList.size();
+	Desc.Usage = D3D11_USAGE_DEFAULT;
+	Desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+
+	D3D11_SUBRESOURCE_DATA InitialData;
+	ZeroMemory(&InitialData, sizeof(InitialData));
+	InitialData.pSysMem = &m_IndexList.at(0);
+
+	HRESULT hr = m_pDevice->CreateBuffer(
+		&Desc,
+		&InitialData,
+		&m_pIndexBuffer);
+	if (FAILED(hr))
+	{
+		return false;
+	}
 	return true;
 }
 
@@ -51,8 +58,11 @@ bool DxObject::CreateInputLayout()
 {
 	const D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
-		{ "POS", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXTURE" , 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		{ "POSITION",  0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "COLOR",  0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 24,D3D11_INPUT_PER_VERTEX_DATA  , 0 },
+		{ "TEXCOORD",  0, DXGI_FORMAT_R32G32_FLOAT, 0, 40,  D3D11_INPUT_PER_VERTEX_DATA, 0 },
+
 	};
 	UINT iNumCount = sizeof(layout) / sizeof(layout[0]);
 	if (m_pShader)
@@ -131,16 +141,27 @@ bool DxObject::Render()
 
 bool DxObject::PostRender()
 {
-	m_pImmediateContext->Draw(m_VertexList.size(), 0);
+	if (m_pIndexBuffer == nullptr)
+		m_pImmediateContext->Draw(m_VertexList.size(), 0);
+	else
+	{
+		m_pImmediateContext->IASetIndexBuffer(m_pIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+		m_pImmediateContext->DrawIndexed(m_IndexList.size(), 0, 0);
+	}
 	return true;
-
 }
 
 bool DxObject::Release()
 {
 	if (m_pVertexBuffer) m_pVertexBuffer->Release();
 	if (m_pVertexLayout) m_pVertexLayout->Release();
-	if (m_pConstantBuffer) m_pConstantBuffer->Release();
+	if (m_pConstantBuffer)m_pConstantBuffer->Release();
+	if (m_pIndexBuffer) m_pIndexBuffer->Release();
+
+
+	m_pVertexBuffer = nullptr;
+	m_pVertexLayout = nullptr;
+	m_pConstantBuffer = nullptr;
 	return true;
 
 }
