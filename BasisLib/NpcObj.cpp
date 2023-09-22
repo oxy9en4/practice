@@ -31,10 +31,10 @@ void NpcObj::Move(float fSecond)
 
 bool NpcObj::Frame()
 {
-	Matrix matScale, matRotation, matTranslate;
-	matScale.Scale(m_vScale);
-	matRotation.ZRotate(m_vRotation.z);
-	matTranslate.Translate(m_vPos);
+	TBASIS_EX::TMatrix matScale, matRotation, matTranslate;
+	D3DXMatrixScaling(&matScale, m_vScale.x, m_vScale.y, m_vScale.z);
+	D3DXMatrixRotationZ(&matRotation, m_vRotation.z);
+	D3DXMatrixTranslation(&matTranslate, m_vPos.x, m_vPos.y, m_vPos.z);
 	m_matWorld = matScale * matRotation * matTranslate;
 	return true;
 }

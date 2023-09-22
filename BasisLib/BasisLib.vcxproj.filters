@@ -48,7 +48,7 @@
     <ClCompile Include="Core.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
+    <ClCompile Include="TCamera.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="NpcObj.cpp">
@@ -87,6 +87,18 @@
     <ClCompile Include="SMap.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="HeightMap.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TMath.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SQuadTree.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SDebugCamera.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Input.h">
@@ -116,7 +128,7 @@
     <ClInclude Include="Collision.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
+    <ClInclude Include="TCamera.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
@@ -158,6 +170,18 @@
     <ClInclude Include="SMap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="HeightMap.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TMath.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SQuadTree.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SDebugCamera.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="DirectXTex.inl">
@@ -172,5 +196,6 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="DefaultObj.hlsl" />
+    <FxCompile Include="HeightMap.hlsl" />
   </ItemGroup>
 </Project>

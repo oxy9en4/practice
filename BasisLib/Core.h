@@ -1,6 +1,6 @@
 #pragma once
 #include "Timer.h"
-#include "Camera.h"
+#include "TCamera.h"
 #include "Input.h"
 #include "ShaderMgr.h"
 #include "TextureMgr.h"
@@ -12,7 +12,7 @@ class Core : public Device
 {
 public:
 	Timer					m_GameTimer;
-	std::shared_ptr<Camera> m_pMainCamera = NULL;
+	std::shared_ptr<TCamera> m_pMainCamera = NULL;
 	ID3D11BlendState*		m_AlphaBlend = nullptr;
 public:
 	virtual bool Init();
@@ -27,5 +27,7 @@ private:
 	virtual bool EngineRelease();
 public:
 	bool Run();
+	virtual bool DeleteDxResource();
+	virtual bool CreateDxResource();
 };
 

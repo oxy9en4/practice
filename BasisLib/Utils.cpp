@@ -1,7 +1,7 @@
 #include "Utils.h"
 
 
-bool Rect::operator == (Rect& p)
+bool TRect::operator == (TRect& p)
 {
     if (fabs(v.x - p.v.x) > 0.0001f)
     {
@@ -18,13 +18,13 @@ bool Rect::operator == (Rect& p)
     }
     return false;
 }
-bool Rect::operator != (Rect& p)
+bool TRect::operator != (TRect& p)
 {
     return !(*this == p);
 }
-Rect Rect::operator + (Rect& p)
+TRect TRect::operator + (TRect& p)
 {
-    Rect rt;
+    TRect rt;
     float fMinX = min(m_Min.x, p.m_Min.x);
     float fMinY = min(m_Min.y, p.m_Min.y);
     float fMaxX = max(m_Max.x, p.m_Max.x);
@@ -33,9 +33,9 @@ Rect Rect::operator + (Rect& p)
     rt.Set(center, fMaxX - fMinX, fMaxY - fMinY);
     return rt;
 }
-Rect Rect::operator - (Rect& p)
+TRect TRect::operator - (TRect& p)
 {
-    Rect rt;
+    TRect rt;
     rt.mbEnable = false;
     if (ToRect(p))
     {
@@ -51,13 +51,13 @@ Rect Rect::operator - (Rect& p)
     }
     return rt;
 }
-Rect Rect::operator - (Vector2& p)
+TRect TRect::operator - (Vector2& p)
 {
     v.x -= p.x;
     v.y -= p.y;
-    return Rect(v.x, v.y, m_fWidth, m_fHeight);
+    return TRect(v.x, v.y, m_fWidth, m_fHeight);
 }
-Rect Rect::operator * (float fValue)
+TRect TRect::operator * (float fValue)
 {
     if (fValue <= 0.0f)
     {
@@ -65,9 +65,9 @@ Rect Rect::operator * (float fValue)
     }
     m_fWidth *= fValue;
     m_fHeight *= fValue;
-    return Rect(v.x, v.y, m_fWidth, m_fHeight);
+    return TRect(v.x, v.y, m_fWidth, m_fHeight);
 }
-Rect Rect::operator / (float fValue)
+TRect TRect::operator / (float fValue)
 {
     if (fValue <= 0.0f)
     {
@@ -75,16 +75,16 @@ Rect Rect::operator / (float fValue)
     }
     m_fWidth /= fValue;
     m_fHeight /= fValue;
-    return Rect(v.x, v.y, m_fWidth, m_fHeight);
+    return TRect(v.x, v.y, m_fWidth, m_fHeight);
 }
-void Rect::Set(Vector2 p)
+void TRect::Set(Vector2 p)
 {
     m_Center = p;
     v = { p.x, p.y };
     s = { m_fWidth, m_fHeight };
     Set(m_fWidth, m_fHeight);
 }
-void Rect::Set(float fw, float fh)
+void TRect::Set(float fw, float fh)
 {
     m_fWidth = fw;
     m_fHeight = fh;
@@ -96,14 +96,14 @@ void Rect::Set(float fw, float fh)
     m_Max = m_Point[1];
     m_Min = m_Point[3];
 }
-void Rect::Set(Vector2 p, float fw, float fh)
+void TRect::Set(Vector2 p, float fw, float fh)
 {
     m_Center = p;
     v = { p.x - fw / 2.0f, p.y + fh / 2.0f };
     s = { fw, fh };
     Set(fw, fh);
 }
-void Rect::Set(float fx, float fy, float fw, float fh)
+void TRect::Set(float fx, float fy, float fw, float fh)
 {
     m_Center.x = fx;
     m_Center.y = fy;
@@ -113,9 +113,9 @@ void Rect::Set(float fx, float fy, float fw, float fh)
     Set(fw, fh);
 }
 
-bool Rect::ToRect(Rect& rt)
+bool TRect::ToRect(TRect& rt)
 {
-    Rect sum = (*this) + rt;
+    TRect sum = (*this) + rt;
     float fX = m_fWidth + rt.m_fWidth;
     float fY = m_fHeight + rt.m_fHeight;
     if (sum.m_fWidth <= fX)
@@ -127,7 +127,7 @@ bool Rect::ToRect(Rect& rt)
     }
     return false;
 }
-bool Rect::ToPoint(Vector2& p)
+bool TRect::ToPoint(Vector2& p)
 {
     if (m_Min.x <= p.x && m_Max.x >= p.x &&
         m_Min.y <= p.y && m_Max.y >= p.y)
@@ -136,9 +136,9 @@ bool Rect::ToPoint(Vector2& p)
     }
     return false;
 }
-Rect::Rect() : mbEnable(true) {}
+TRect::TRect() : mbEnable(true) {}
 
-Rect::Rect(float fx, float fy, float fw, float fh)
+TRect::TRect(float fx, float fy, float fw, float fh)
 {
     mbEnable = true;
     Set(fx, fy, fw, fh);

@@ -3,6 +3,7 @@
 #include "DirectXTex.h"
 #include "ShaderMgr.h"
 #include "TextureMgr.h"
+#include "TMath.h"
 
 class Object : public DxObject
 {
@@ -18,10 +19,10 @@ public:
 	Vector3			m_vPos;
 	Vector3			m_vScale;
 	Vector3			m_vRotation;
-	Matrix			m_matWorld;
-	Matrix			m_matView;
-	Matrix			m_matProj;
-	Rect			m_RT;
+	TBASIS_EX::TMatrix         m_matWorld;
+	TBASIS_EX::TMatrix         m_matView;
+	TBASIS_EX::TMatrix         m_matProj;
+	TRect			m_RT;
 	W_STR           m_szName;
 	void            SetName(W_STR name) { m_szName = name; }
 	virtual void SetRect(Vector2& c, float w, float h);
@@ -37,7 +38,7 @@ public:
 	virtual bool Frame() override;
 	virtual bool Render() override;
 	virtual bool Release() override;
-	virtual void SetMatrix(Matrix* matWorld, Matrix* matView, Matrix* matProj);
+	virtual void SetMatrix(TBASIS_EX::TMatrix* matWorld, TBASIS_EX::TMatrix* matView, TBASIS_EX::TMatrix* matProj);
 	virtual void Move(float fSecond) {};
 public:
 	Object();

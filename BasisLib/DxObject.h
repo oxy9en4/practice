@@ -5,9 +5,9 @@
 
 struct CB_Data
 {
-	Matrix matWorld;
-	Matrix matView;
-	Matrix matProj;
+	TBASIS_EX::TMatrix matWorld;
+	TBASIS_EX::TMatrix matView;
+	TBASIS_EX::TMatrix matProj;
 };
 struct PT_Vertex
 {

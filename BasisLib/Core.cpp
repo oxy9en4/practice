@@ -46,7 +46,7 @@ bool  Core::EngineInit()
     m_GameTimer.Init();
     Input::GetInstance().Init();
 
-    m_pMainCamera = std::make_shared<Camera>();
+    m_pMainCamera = std::make_shared<TCamera>();
     m_pMainCamera->Init();
 
     I_Writer.Init();
@@ -69,7 +69,9 @@ bool  Core::EngineFrame()
 {
     m_GameTimer.Frame();
     Input::GetInstance().Frame();
-    //m_pMainCamera->Frame();
+    //m_pMain
+    ICore::g_pMainCamera->Frame();
+    //Core::m_pMainCamera->Frame();
     Device::Frame();
     I_Writer.Frame();
     //I_Sound.Frame();
@@ -125,4 +127,26 @@ bool Core::Run()
     }
     EngineRelease();
     return true;
+}
+
+bool Core::DeleteDxResource()
+{
+    I_Writer.DeleteDxResource();
+    return true;
+}
+
+bool Core::CreateDxResource()
+{
+    if (m_pSwapChain)
+    {
+        IDXGISurface1* pBackBuffer;
+        HRESULT hr = m_pSwapChain->GetBuffer(0, __uuidof(IDXGISurface1),
+            (LPVOID*)&pBackBuffer);
+        if (SUCCEEDED(hr))
+        {
+            I_Writer.CreateDxResource(pBackBuffer);
+        }
+        if (pBackBuffer) pBackBuffer->Release();
+    }
+    return false;
 }

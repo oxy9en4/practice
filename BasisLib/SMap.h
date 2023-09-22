@@ -11,8 +11,7 @@ struct SMapDesc
 {
 	UINT iNumRows;
 	UINT iNumCols;
-	float fCellDistance;
-	float fScaleHeight;
+	float fDistance;
 	W_STR strTextureFileName;
 	W_STR strShaderFileName;
 };

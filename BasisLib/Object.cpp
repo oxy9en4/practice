@@ -29,10 +29,10 @@ bool Object::Create(std::wstring texFilename,
 }
 void Object::UpdateMatrix()
 {
-	Matrix matScale, matRotate, matTranslate;
-	matScale.Scale(m_vScale);
-	matRotate.ZRotate(m_vRotation.z);
-	matTranslate.Translate(m_vPos);
+	TBASIS_EX::TMatrix matScale, matRotate, matTranslate;
+	D3DXMatrixScaling(&matScale, m_vScale.x, m_vScale.y, m_vScale.z);
+	D3DXMatrixRotationZ(&matRotate, m_vRotation.z);
+	D3DXMatrixTranslation(&matTranslate, m_vPos.x, m_vPos.y, m_vPos.z);
 	m_matWorld = matScale * matRotate * matTranslate;
 }
 bool Object::Init() {
@@ -51,7 +51,7 @@ bool Object::Release() {
 	DxObject::Release();
 	return true;
 }
-void Object::SetMatrix(Matrix* matWorld, Matrix* matView, Matrix* matProj) {
+void Object::SetMatrix(TBASIS_EX::TMatrix* matWorld, TBASIS_EX::TMatrix* matView, TBASIS_EX::TMatrix* matProj) {
 	if (matWorld != nullptr)
 		m_matWorld = *matWorld;
 	if (matView != nullptr)

@@ -1,5 +1,6 @@
 #pragma once
 #include "aMath.h"
+#include "TMath.h"
 
 struct UVRect
 {
@@ -7,7 +8,7 @@ struct UVRect
 	Vector2 m_Max;
 };
 
-struct Rect
+struct TRect
 {
 	bool mbEnable = true;
 	float m_fWidth = 0.0f;
@@ -20,25 +21,46 @@ struct Rect
 	Vector2 v;
 	Vector2 s;
 
-	bool operator == (Rect& p);
-	bool operator != (Rect& p);
-	Rect operator + (Rect& p);
-	Rect operator - (Rect& p);
-	Rect operator - (Vector2& p);
-	Rect operator * (float fValue);
-	Rect operator / (float fValue);
+	bool operator == (TRect& p);
+	bool operator != (TRect& p);
+	TRect operator + (TRect& p);
+	TRect operator - (TRect& p);
+	TRect operator - (Vector2& p);
+	TRect operator * (float fValue);
+	TRect operator / (float fValue);
 	void Set(Vector2 p);
 	void Set(float fw, float fh);
 	void Set(Vector2 p, float fw, float fh);
 	void Set(float fx, float fy, float fw, float fh);
 
-	bool ToRect(Rect& rt);
+	bool ToRect(TRect& rt);
 	bool ToPoint(Vector2& p);
-	Rect();
-	Rect(float fx, float fy, float fw, float fh);
+	TRect();
+	TRect(float fx, float fy, float fw, float fh);
 };
 
-
+struct T_AABB
+{
+	// AABB
+	TVector3   vMax;
+	TVector3   vMin;
+};
+struct T_OBB
+{
+	// AABB
+	TVector3   vCenter;
+	TVector3   vAxis[3];
+	float      fExtent[3];
+};
+struct T_BOX
+{
+	TVector3   vPos[8];
+	TVector3   vMax;
+	TVector3   vMin;
+	TVector3   vCenter;
+	TVector3   vAxis[3];
+	float      fExtent[3];
+};
 // make classes for  octree
 
 struct Box {

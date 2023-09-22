@@ -11,6 +11,9 @@ bool Input::Frame()
 	::GetCursorPos(&m_MousePos); // screen position
 	::ScreenToClient(g_hWnd, &m_MousePos);
 
+	m_vOffset.x = m_MousePos.x - m_BeforeMousePos.x;
+	m_vOffset.y = m_MousePos.y - m_BeforeMousePos.y;
+
 	for (int ikey = 0; ikey < 256; ++ikey) {
 		SHORT s = GetAsyncKeyState(ikey);
 		if (s & 0x8000) // 1000 0000 0000 0000
@@ -27,18 +30,14 @@ bool Input::Frame()
 			else
 				m_dwKeyState[ikey] = KEY_FREE;
 	}
+
+	m_BeforeMousePos = m_MousePos;
 	return true;
 }
 
 bool Input::Render()
 {
-//#ifdef _DEBUG
-//	std::wstring mousPos = std::to_wstring(m_MousePos.x);
-//	mousPos += L", ";
-//	mousPos += std::to_wstring(m_MousePos.y);
-//	mousPos += L"\n";
-//	DebugString(mousPos.c_str());
-//#endif
+
 	return true;
 }
 

@@ -1,3 +1,5 @@
+#include "..\QuadTreeAndMap\Sample.h"
+#include "..\QuadTreeAndMap\Sample.h"
 #include "Sample.h"
 
 float g_fMapHalfSizeX = 400;
@@ -50,5 +52,7 @@ void Sample::DebugMode()
 		m_rsFillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
 	}
 }
+
+
 
 GAME(L"kgca", 800, 600)

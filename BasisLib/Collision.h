@@ -32,9 +32,9 @@ enum CollisionType
 class Collision
 {
 public:
-	static bool RectToRect(Rect& rt1, Rect& rt2)
+	static bool RectToRect(TRect& rt1, TRect& rt2)
 	{
-		Rect sum = rt1 + rt2;
+		TRect sum = rt1 + rt2;
 		float fX = rt1.m_fWidth + rt2.m_fWidth;
 		float fY = rt1.m_fHeight + rt2.m_fHeight;
 		if (fabs(sum.m_fWidth - fX) < EPSILON)
@@ -46,7 +46,7 @@ public:
 		}
 		return false;
 	}
-	static bool RectToPoint(Rect& rt, Vector2& p)
+	static bool RectToPoint(TRect& rt, Vector2& p)
 	{
 		if (rt.m_Min.x <= p.x && rt.m_Max.x >= p.x
 			&&
